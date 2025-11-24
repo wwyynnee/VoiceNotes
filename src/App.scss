@@ -1,5 +1,4 @@
-@import './styles/ui/colors';
-
+@import './styles/UI/colors';
 @import 'https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900';
 
 * {
@@ -14,6 +13,9 @@ body {
 }
 h1 {
   text-align: center;
+}
+button {
+  cursor: pointer;
 }
 button,
 input {

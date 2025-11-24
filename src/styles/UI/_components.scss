@@ -1,17 +1,18 @@
-%button {
-    border-radius: 15px;
-    background-color: $color-button;
-    color: white;
-    padding: 14.5px 32px;
-    font-size: 18px;
-    font-weight: 500;
-}
 @mixin button($height, $width) {
     border-radius: 15px;
     background-color: $color-button;
     padding: 10px;
     height: $height;
     width: $width;
+    font-size: 18px;
+    font-weight: 500;
+    color: white;
+    @if $height == auto {
+        padding: 14.5px 32px;
+    }
+    &:hover {
+        background-color: $color-text;   
+    }
     svg {
         height: $height - 20px;
         width: $width - 20px;
@@ -24,8 +25,8 @@
         width: $width - 10px;
         padding: 0;
         svg {
-            height: ($height - 10px) / 2;
-            width: ($width - 10px) / 2;
+            height: calc(($height - 10px) / 2 - 1px);
+            width: calc(($width - 10px) / 2 - 1px);
         }
     }
 }

@@ -1,5 +1,5 @@
-@import '../../styles/ui/colors';
-@import '../../styles/ui/components';
+@import '../../styles/UI/colors';
+@import '../../styles/UI/components';
 
 .nav {
     background-color: $color-main;
@@ -34,26 +34,7 @@
             }
 
             &:nth-child(2) {
-                display: flex;
-                gap: 1rem;
                 width: 100%;
-
-                button {
-                    background-color: white;
-                    border-radius: 15px;
-                    height: 50px;
-                    min-width: 50px;
-                }
-                input {
-                    border-radius: 15px;
-                    padding: 15px 16px;
-                    font-size: 16px;
-                    width: min(100%, 750px);
-                    &::placeholder {
-                        color: $color-grey;
-                    }
-                }
-
                 @media screen and (max-width: 700px) {
                     display: none;
                 }
@@ -67,7 +48,7 @@
                 }
 
                 button {
-                    @extend %button;
+                    @include button(auto, auto);
 
                     &:nth-child(2) {
                         display: none;
@@ -79,13 +60,6 @@
                         }
                         &:nth-child(2) {
                             display: flex;
-                        }
-                    }
-
-                    svg {
-                        @media screen and (max-width: 700px) {
-                            height: 20px;
-                            width: 20px;
                         }
                     }
                 }
