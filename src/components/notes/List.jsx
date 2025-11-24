@@ -1,9 +1,22 @@
-import styles from './Notes.module.scss'
+import { NavLink, useNavigate } from 'react-router'
+import styles from './List.module.scss'
 
 function Notes() {
+    const navigate = useNavigate()
+
+    function linkNote(e) {
+        if (e.target.closest('button')) {
+            e.preventDefault();
+        }
+    }
+    function linkButtonEdit() {
+        navigate('/edit')
+    }
+
     return (
         <div className={styles.notes}>
-            <div className={styles.notesItem}>
+            <NavLink to='/note' className={styles.notesItem}
+            onClick={linkNote}>
                 <div className={styles.notesItemContainer}>
                     <p>Название заметки</p>
                     <span>19.11.2025 14:40</span>
@@ -16,7 +29,7 @@ function Notes() {
                             <path d="M0 15.5V20H10H20V15.5V11H19.375C19.025 11 18.45 11.275 18.125 11.625C17.55 12.2 17.5 12.4 17.5 14.875V17.5H10H2.5V14.875C2.5 12.4 2.45 12.2 1.875 11.625C1.55 11.275 0.975 11 0.625 11H0V15.5Z" fill="white"/>
                         </svg>
                     </button>
-                    <button>                     
+                    <button onClick={linkButtonEdit}>                     
                         <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M17.0697 0C16.3231 4.88037e-08 15.5764 0.283062 15.0006 0.854065L13.9026 1.95692L18.0409 6.0957L19.1436 4.99762C20.2855 3.85073 20.2855 2.00095 19.1436 0.854065C18.5727 0.283062 17.8212 0 17.0697 0ZM12.8676 2.99209L3.48923 12.3725L7.62751 16.5113L17.0058 7.13087L12.8676 2.99209ZM2.45419 13.4067L0 20L6.59247 17.5455L2.45419 13.4067Z" fill="white"/>
                         </svg>
@@ -27,7 +40,7 @@ function Notes() {
                         </svg>
                     </button>
                 </div>
-            </div>
+            </NavLink>
         </div>
     )
 }

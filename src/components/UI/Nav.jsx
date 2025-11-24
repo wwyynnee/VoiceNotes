@@ -1,7 +1,10 @@
+import { NavLink, useLocation } from 'react-router'
 import Search from '../notes/Search';
 import styles from './Nav.module.scss'
 
 function Nav() {
+    const location = useLocation()
+    
     return (
         <nav className={styles.nav}>
             <div className={styles.navItems}>
@@ -9,11 +12,13 @@ function Nav() {
                     <p>Voice</p>
                     <p>Notes</p>
                 </div>
-                <div className={styles.navItemsContainer}>
+                {location.pathname === '/' ? <div className={`${styles.navItemsContainer} ${styles.navItemsContainerSearch}`}>
                     <Search />
-                </div>
+                </div> : <></>}
                 <div className={styles.navItemsContainer}>
-                    <button>Создать</button>
+                    <NavLink to='/create'>
+                        <button>Создать</button>
+                    </NavLink>
                     <button>
                         <svg width="20" height="20" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M15.965 0.0649672C15.5941 0.16272 15.3108 0.36337 14.7853 0.888148L14.2959 1.38206L15.4705 2.54994L16.6399 3.72298L17.1551 3.20849C17.8145 2.55509 17.9948 2.22582 18 1.67531C18.0051 0.898438 17.5157 0.265618 16.7584 0.0701121C16.4132 -0.0224957 16.2844 -0.0224957 15.965 0.0649672Z" fill="white"/>

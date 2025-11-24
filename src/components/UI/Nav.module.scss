@@ -33,14 +33,7 @@
                 }
             }
 
-            &:nth-child(2) {
-                width: 100%;
-                @media screen and (max-width: 700px) {
-                    display: none;
-                }
-            }
-
-            &:nth-child(3) {
+            &:last-child {
                 display: flex;
                 gap: 1rem;
                 @media screen and (max-width: 700px) {
@@ -60,11 +53,19 @@
                         }
                         &:nth-child(2) {
                             display: flex;
+                            width: 40px;
                         }
                     }
                 }
                 button ~ button {
                     @include button(50px, 50px);
+                }
+            }
+
+            &Search {
+                width: 100%;
+                @media screen and (max-width: 700px) {
+                    display: none;
                 }
             }
         }
