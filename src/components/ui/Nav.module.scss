@@ -3,7 +3,6 @@
 
 .nav {
     background-color: $color-main;
-    color: $color-text;
     display: flex;
     justify-content: center;
 
@@ -25,6 +24,12 @@
                 }
                 &:last-child {
                     margin-left: 20px;
+                    @media screen and (max-width: 700px) {
+                        margin-left: 15px;
+                    }
+                }
+                @media screen and (max-width: 700px) {
+                    font-size: 16px;
                 }
             }
 
@@ -69,26 +74,23 @@
                     }
 
                     @media screen and (max-width: 700px) {
-                        height: 40px;
-                        width: 40px;
-
                         &:first-child {
                             display: none;
                         }
                         &:nth-child(2) {
-                            display: block;
+                            display: flex;
                         }
                     }
 
                     svg {
                         @media screen and (max-width: 700px) {
                             height: 20px;
+                            width: 20px;
                         }
                     }
                 }
                 button ~ button {
-                    padding: 10px;
-                    display: flex;
+                    @include button(50px, 50px);
                 }
             }
         }

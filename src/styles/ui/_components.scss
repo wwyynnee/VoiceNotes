@@ -6,3 +6,26 @@
     font-size: 18px;
     font-weight: 500;
 }
+@mixin button($height, $width) {
+    border-radius: 15px;
+    background-color: $color-button;
+    padding: 10px;
+    height: $height;
+    width: $width;
+    svg {
+        height: $height - 20px;
+        width: $width - 20px;
+    }
+    @media screen and (max-width: 700px) {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: $height - 10px;
+        width: $width - 10px;
+        padding: 0;
+        svg {
+            height: ($height - 10px) / 2;
+            width: ($width - 10px) / 2;
+        }
+    }
+}

@@ -1,0 +1,48 @@
+@import '../../styles/ui/colors';
+@import '../../styles/ui/components';
+
+.notes {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    margin: 48px auto;
+    width: min(100% - 2rem, 1200px);
+
+    &Item {
+        background-color: white;
+        border-radius: 15px;
+        padding: 32px;
+        display: flex;
+        justify-content: space-between;
+        @media screen and (max-width: 700px) {
+            flex-direction: column;
+            gap: 10px;
+            padding: 1rem;
+        }
+
+        &Container {
+            p {
+                font-size: 24px;
+                font-weight: 600;
+                @media screen and (max-width: 700px) {
+                    font-size: 20px;
+                }
+            }
+            span {
+                font-size: 16px;
+                color: $color-grey;
+                font-variant-numeric: lining-nums;
+                @media screen and (max-width: 700px) {
+                    font-size: 14px;
+                }
+            }
+            button {
+                @include button(40px, 40px);
+            }
+            &:last-child {
+                display: flex;
+                gap: 8px;
+            }
+        }
+    }
+}
