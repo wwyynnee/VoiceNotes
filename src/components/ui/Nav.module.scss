@@ -1,0 +1,96 @@
+@import '../../styles/ui/colors';
+@import '../../styles/ui/components';
+
+.nav {
+    background-color: $color-main;
+    color: $color-text;
+    display: flex;
+    justify-content: center;
+
+    &Items {
+        width: min(100%, 1200px);
+        margin: 1rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 48px;
+
+        &Container {
+            p {
+                font-size: 20px;
+                font-weight: 700;
+                text-transform: uppercase;
+                &::first-letter {
+                    color: $color-button;
+                }
+                &:last-child {
+                    margin-left: 20px;
+                }
+            }
+
+            &:nth-child(2) {
+                display: flex;
+                gap: 1rem;
+                width: 100%;
+
+                button {
+                    background-color: white;
+                    border-radius: 15px;
+                    height: 50px;
+                    min-width: 50px;
+                }
+                input {
+                    border-radius: 15px;
+                    padding: 15px 16px;
+                    font-size: 16px;
+                    width: min(100%, 750px);
+                    &::placeholder {
+                        color: $color-grey;
+                    }
+                }
+
+                @media screen and (max-width: 700px) {
+                    display: none;
+                }
+            }
+
+            &:nth-child(3) {
+                display: flex;
+                gap: 1rem;
+                @media screen and (max-width: 700px) {
+                    gap: 10px;
+                }
+
+                button {
+                    @extend %button;
+
+                    &:nth-child(2) {
+                        display: none;
+                    }
+
+                    @media screen and (max-width: 700px) {
+                        height: 40px;
+                        width: 40px;
+
+                        &:first-child {
+                            display: none;
+                        }
+                        &:nth-child(2) {
+                            display: block;
+                        }
+                    }
+
+                    svg {
+                        @media screen and (max-width: 700px) {
+                            height: 20px;
+                        }
+                    }
+                }
+                button ~ button {
+                    padding: 10px;
+                    display: flex;
+                }
+            }
+        }
+    }
+}

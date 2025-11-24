@@ -1,9 +1,11 @@
-import './App.css'
+import './App.scss'
+
+import Nav from './components/ui/Nav.jsx'
 
 function App() {
   return (
     <div className="App">
-      <h1>VoiceNotes</h1>
+      <Nav />
     </div>
   )
 }
