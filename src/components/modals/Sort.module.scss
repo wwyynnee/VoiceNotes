@@ -2,61 +2,24 @@
 @import '../../styles/UI/components';
 
 .modal {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100%;
-    width: 100%;
-    background-color: $color-background-modal;
-    position: absolute;
-    top: 0;
-    left: 0;
+    @extend %modal;
 
     &Block {
-        background-color: white;
-        border-radius: 20px;
-        padding: 20px;
-        width: min(100% - 2rem, 500px);
+        @extend %modal-block;
 
         &Container {
-            display: flex;
-            &:first-child {
-                align-items: center;
-                justify-content: space-between;
-                margin-bottom: 1rem;
+            @extend %modal-block-container;
 
-                p {
-                    font-size: 28px;
-                    font-weight: 700;
-                }
-
-                svg {
-                    cursor: pointer;
-                }
-            }
             &:last-child {
                 flex-direction: column;
 
                 button {
-                    display: flex;
-                    align-items: center;
-                    justify-content: space-between;
-                    border-radius: 10px;
-                    padding: 1rem;
-                    font-size: 20px;
-                    text-align: left;
-                }
-                button:not(.modalBlockContainerActive) {
-                    background-color: inherit;
-                    &:hover {
-                        background-color: rgba($color-main, .4);
-                    }
+                    @include buttonModal;
                 }
             }
 
             &Active {
-                background-color: $color-main;
-                color: $color-button;
+                @extend %modal-block-container-active;
             }
         }
     }
