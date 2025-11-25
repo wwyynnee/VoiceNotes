@@ -2,7 +2,7 @@ import { NavLink, useLocation } from 'react-router'
 import Search from '../notes/Search';
 import styles from './Nav.module.scss'
 
-function Nav() {
+function Nav({ onOpenSort, isSortActive }) {
     const location = useLocation()
     
     return (
@@ -13,7 +13,7 @@ function Nav() {
                     <p>Notes</p>
                 </div>
                 {location.pathname === '/' ? <div className={`${styles.navItemsContainer} ${styles.navItemsContainerSearch}`}>
-                    <Search />
+                    <Search onOpenSort={onOpenSort} isSortActive={isSortActive} />
                 </div> : <></>}
                 <div className={styles.navItemsContainer}>
                     <NavLink to='/create'>

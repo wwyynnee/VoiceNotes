@@ -5,6 +5,16 @@
     gap: 1rem;
     width: 100%;
 
+    &Active {
+        background-color: $color-text !important;
+
+        svg {
+            rect {
+                fill: white;
+            }
+        }
+    }
+
     &Mobile {
         display: none;
         margin: 24px auto 0;

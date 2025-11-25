@@ -1,13 +1,11 @@
 import Search from '../notes/Search';
 import Notes from '../notes/List';
-import Sort from '../modals/Sort'
 
-function Main() {
+function Main({ onOpenSort, isSortActive }) {
     return (
         <>
-            <Search type="mobile" />
+            <Search type="mobile" onOpenSort={onOpenSort} isSortActive={isSortActive} />
             <Notes />
-            <Sort />
         </>
     )
 }
