@@ -41,6 +41,11 @@ function Notes() {
                     </button>
                 </div>
             </NavLink>
+            {/* <div className={styles.notesEmpty}>
+                <p>Пока пусто</p>
+                <p>Запиши свою первую заметку!</p>
+                <NavLink to="/create">Создать заметку</NavLink>
+            </div> */}
         </div>
     )
 }

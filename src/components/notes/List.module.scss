@@ -52,4 +52,33 @@
             }
         }
     }
+
+    &Empty {
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        margin: 0 auto;
+        width: min(100%, 300px);
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        p {
+            text-align: center;
+            &:first-child {
+                font-size: 32px;
+                font-weight: 600;
+                margin-bottom: 8px;
+            }
+            &:nth-child(2) {
+                font-size: 20px;
+                color: $color-grey;
+            }
+        }
+        a {
+            @include button(initial, initial);
+            text-align: center;
+            margin-top: 24px;
+        }
+    }
 }

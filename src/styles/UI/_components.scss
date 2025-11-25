@@ -10,6 +10,9 @@
     @if $height == auto {
         padding: 14.5px 32px;
     }
+    @if $height == initial {
+        padding: 14.5px 32px;
+    }
     &:hover {
         background-color: $color-text;   
     }
@@ -24,6 +27,9 @@
         height: $height - 10px;
         width: $width - 10px;
         padding: 0;
+        @if $height == initial {
+            padding: 14.5px 32px;
+        }
         svg {
             height: calc(($height - 10px) / 2 - 1px);
             width: calc(($width - 10px) / 2 - 1px);
