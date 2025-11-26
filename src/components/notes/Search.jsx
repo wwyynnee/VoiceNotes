@@ -1,6 +1,10 @@
+import { useContext } from 'react'
+import NotesContext from '../../context/NotesContext'
 import styles from './Search.module.scss'
 
-function Search({ type, onOpenSort, isSortActive }) {
+function Search({ type }) {
+    const { onOpenSort, isSortActive } = useContext(NotesContext)
+
     return (
         <div className={`${styles.search} ${type === 'mobile' && styles.searchMobile}`}>
             <button onClick={onOpenSort} className={isSortActive ? styles.searchActive : ''}>                       

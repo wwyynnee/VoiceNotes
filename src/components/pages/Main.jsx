@@ -1,11 +1,11 @@
 import Search from '../notes/Search';
-import Notes from '../notes/List';
+import List from '../notes/List';
 
-function Main({ onOpenSort, isSortActive }) {
+function Main() {
     return (
         <>
-            <Search type="mobile" onOpenSort={onOpenSort} isSortActive={isSortActive} />
-            <Notes />
+            <Search type="mobile" />
+            <List />
         </>
     )
 }

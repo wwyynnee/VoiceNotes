@@ -76,6 +76,10 @@
                     display: none;
                 }
             }
+
+            &Active {
+                background-color: $color-text !important;
+            }
         }
     }
 }

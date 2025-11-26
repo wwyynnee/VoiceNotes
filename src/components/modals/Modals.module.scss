@@ -1,0 +1,88 @@
+@import '../../styles/UI/colors';
+@import '../../styles/UI/components';
+
+.modal {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+    background-color: $color-background-modal;
+    position: absolute;
+    top: 0;
+
+    &Block {
+        background-color: white;
+        border-radius: 20px;
+        padding: 20px;
+        width: min(100% - 2rem, 500px);
+
+        span {
+            color: $color-grey;
+            font-size: 20px;
+        }
+
+        &Container {
+            display: flex;
+            &:first-child {
+                align-items: center;
+                justify-content: space-between;
+                margin-bottom: 1rem;
+
+                p {
+                    font-size: 28px;
+                    font-weight: 700;
+                }
+
+                svg {
+                    cursor: pointer;
+                    &:hover {
+                        path {
+                            fill: $color-button;
+                        }
+                    }
+                }
+            }
+
+            b {
+                font-size: 24px;
+                font-weight: 600;
+                margin: 1rem 0;
+                &:first-child {
+                    @media screen and (max-width: 700px) {
+                        margin: 8px 0 1rem;
+                    }
+                }
+                @media screen and (max-width: 700px) {
+                    font-size: 22px;
+                }
+            }
+
+            &:not(:first-child) {
+                flex-direction: column;
+            }
+
+            &Active {
+                background-color: $color-main;
+                color: $color-button;
+            }
+        }
+
+        &Default {
+            button {
+                @include buttonModal;
+            }
+        }
+    }
+
+    &Download {
+        @include buttonModalFill;
+
+        &Container {
+            gap: 8px;
+            &:first-child {
+                margin: 0;
+            }
+        }
+    }
+}

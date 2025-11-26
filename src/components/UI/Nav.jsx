@@ -1,16 +1,14 @@
-import { useState } from 'react'
+import { useContext } from 'react'
 import { NavLink, useLocation } from 'react-router'
+import NotesContext from '../../context/NotesContext'
 import Search from '../notes/Search'
-import Settings from '../modals/Settings'
 import styles from './Nav.module.scss'
 
-function Nav({ onOpenSort, isSortActive }) {
-    const location = useLocation()
-    
-    const [settingsOpen, setSettingsOpen] = useState(false)
+function Nav() {
+    const { onOpenSettings, isSettingsActive } = useContext(NotesContext)
 
-    const closeSettingsModal = () => setSettingsOpen(false)
-    
+    const location = useLocation()
+
     return (
         <>
             <nav className={styles.nav}>
@@ -20,7 +18,7 @@ function Nav({ onOpenSort, isSortActive }) {
                         <p>Notes</p>
                     </div>
                     {location.pathname === '/' ? <div className={`${styles.navItemsContainer} ${styles.navItemsContainerSearch}`}>
-                        <Search onOpenSort={onOpenSort} isSortActive={isSortActive} />
+                        <Search />
                     </div> : <></>}
                     <div className={styles.navItemsContainer}>
                         <NavLink to='/create'>
@@ -34,7 +32,7 @@ function Nav({ onOpenSort, isSortActive }) {
                                 </svg>
                             </button>
                         </NavLink>
-                        <button onClick={() => setSettingsOpen(!settingsOpen)}>                    
+                        <button onClick={onOpenSettings} className={isSettingsActive ? styles.navItemsContainerActive : ''}>                    
                             <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M30 13.6957V15.3261C30 15.9202 29.6485 16.4583 29.1039 16.6963L26.3648 17.895C26.0843 18.9978 25.6507 20.0361 25.0833 20.9896L26.5291 24.6848L25.3761 25.8378C24.9561 26.2578 24.3267 26.3896 23.773 26.173L20.9896 25.0839C20.0361 25.6513 18.9972 26.085 17.8943 26.3654L16.3043 30H14.6739C14.0798 30 13.5417 29.6485 13.3037 29.1039L12.105 26.3648C11.0022 26.0843 9.96391 25.6507 9.01044 25.0833L5.31522 26.5291L4.16283 25.3761C3.74283 24.9561 3.61109 24.3267 3.82761 23.773L4.91674 20.9896C4.3487 20.0361 3.91565 18.9972 3.63522 17.8943L0 16.3043V14.6739C0 14.0798 0.351522 13.5417 0.896087 13.3037L3.63522 12.105C3.91565 11.0022 4.34935 9.96391 4.91674 9.01044L3.47087 5.31587L4.62391 4.16283C5.04391 3.74283 5.67326 3.61109 6.2263 3.82761L9.00978 4.91674C9.96326 4.34935 11.0015 3.91565 12.105 3.63522L13.6957 0H15.3261C15.9202 0 16.4583 0.351522 16.6963 0.896087L17.895 3.63522C18.9978 3.91565 20.0361 4.34935 20.9896 4.91674L24.6848 3.47087L25.8378 4.62391C26.2578 5.04391 26.3896 5.67326 26.173 6.2263L25.0839 9.00978C25.652 9.96326 26.085 11.0022 26.3654 12.105L30 13.6957ZM15 8.47826C11.398 8.47826 8.47826 11.3987 8.47826 15C8.47826 18.6013 11.3987 21.5217 15 21.5217C18.6013 21.5217 21.5217 18.6013 21.5217 15C21.5217 11.3987 18.6013 8.47826 15 8.47826Z" fill="white"/>
                             </svg>
@@ -42,7 +40,6 @@ function Nav({ onOpenSort, isSortActive }) {
                     </div>
                 </div>
             </nav>
-            {settingsOpen && <Settings onCloseSettings={closeSettingsModal} />}
         </>
     )
 }

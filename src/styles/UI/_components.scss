@@ -13,19 +13,23 @@
     @if $height == initial {
         padding: 14.5px 32px;
     }
+    @if $height == modal {
+        height: 50px;
+        width: 100%;
+    }
     &:hover {
         background-color: $color-text;   
     }
     svg {
-        height: $height - 20px;
-        width: $width - 20px;
+        height: calc($height - 20px);
+        width: calc($width - 20px);
     }
     @media screen and (max-width: 700px) {
         display: flex;
         align-items: center;
         justify-content: center;
-        height: $height - 10px;
-        width: $width - 10px;
+        height: calc($height - 10px);
+        width: calc($width - 10px);
         padding: 0;
         @if $height == initial {
             padding: 14.5px 32px;
@@ -47,57 +51,6 @@
     }
 }
 
-%modal {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100%;
-    width: 100%;
-    background-color: $color-background-modal;
-    position: absolute;
-    top: 0;
-}
-%modal-block {
-    background-color: white;
-    border-radius: 20px;
-    padding: 20px;
-    width: min(100% - 2rem, 500px);
-}
-%modal-block-container {
-    display: flex;
-    &:first-child {
-        align-items: center;
-        justify-content: space-between;
-        margin-bottom: 1rem;
-
-        p {
-            font-size: 28px;
-            font-weight: 700;
-        }
-
-        svg {
-            cursor: pointer;
-        }
-    }
-
-    b {
-        font-size: 24px;
-        font-weight: 600;
-        margin: 1rem 0;
-        &:first-child {
-            @media screen and (max-width: 700px) {
-                margin: 8px 0 1rem;
-            }
-        }
-        @media screen and (max-width: 700px) {
-            font-size: 22px;
-        }
-    }
-}
-%modal-block-container-active {
-    background-color: $color-main;
-    color: $color-button;
-}
 @mixin buttonModal {
     display: flex;
     align-items: center;
@@ -105,15 +58,30 @@
     border-radius: 10px;
     padding: 1rem;
     font-size: 20px;
-    text-align: left;
     @media screen and (max-width: 700px) {
         font-size: 18px;
     }
-
-    &:not(.modalBlockContainerActive) {
+    
+    &:not(.modalBlockContainerActive):not(.modalBlockDownload button) {
         background-color: inherit;
         &:hover {
             background-color: rgba($color-main, .4);
+        }
+    }
+}
+@mixin buttonModalFill {
+    span {
+        margin: 8px 0 24px;
+    }
+    button {
+        @include button(auto, auto);
+        text-align: left;
+        @media screen and (max-width: 700px) {
+            @include button(modal, modal);
+        }
+        
+        &:hover {
+            background-color: rgba($color-button, .6);
         }
     }
 }
