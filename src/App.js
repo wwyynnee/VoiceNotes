@@ -12,6 +12,7 @@ import Note from './components/pages/Note'
 import Sort from './components/modals/Sort'
 import Settings from './components/modals/Settings'
 import Download from './components/modals/Download'
+import Delete from './components/modals/Detete'
 
 import './App.scss'
 
@@ -19,6 +20,7 @@ function App() {
   const [sortOpen, setSortOpen] = useState(false)
   const [settingsOpen, setSettingsOpen] = useState(false)
   const [downloadOpen, setDownloadOpen] = useState(false)
+  const [deleteOpen, setDeleteOpen] = useState(false)
 
   const toggleSortModal = () => setSortOpen(!sortOpen)
   const closeSortModal = () => setSortOpen(false)
@@ -29,6 +31,9 @@ function App() {
   const toggleDownloadModal = () => setDownloadOpen(!downloadOpen)
   const closeDownloadModal = () => setDownloadOpen(false)
 
+  const toggleDeleteModal = () => setDeleteOpen(!deleteOpen)
+  const closeDeleteModal = () => setDeleteOpen(false)
+
   const contextValue = {
     onOpenSort: toggleSortModal,
     onCloseSort: closeSortModal,
@@ -36,9 +41,12 @@ function App() {
     onCloseSettings: closeSettingsModal,
     onOpenDownload: toggleDownloadModal,
     onCloseDownload: closeDownloadModal,
+    onOpenDelete: toggleDeleteModal,
+    onCloseDelete: closeDeleteModal,
     isSortActive: sortOpen,
     isSettingsActive: settingsOpen,
     isDownloadActive: downloadOpen,
+    isDeleteActive: deleteOpen
   }
 
   return (
@@ -55,6 +63,7 @@ function App() {
             {sortOpen && <Sort />}
             {settingsOpen && <Settings />}
             {downloadOpen && <Download />}
+            {deleteOpen && <Delete />}
           </div>
       </BrowserRouter>
     </NotesContext.Provider>

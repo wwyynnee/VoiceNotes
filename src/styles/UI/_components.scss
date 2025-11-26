@@ -69,9 +69,10 @@
         }
     }
 }
-@mixin buttonModalFill {
+@mixin buttonModalDownload {
     button {
         @include button(modal, modal);
+        display: flex;
         justify-content: flex-start !important;
         padding: 14.5px 32px !important;
         @media screen and (max-width: 700px) {
@@ -79,7 +80,30 @@
         }
         
         &:hover {
-            background-color: rgba($color-button, .6);
+            background-color: $color-text;
+        }
+    }
+}
+@mixin buttonModalDefault {
+    button {
+        @include button(modal, modal);
+        padding: 14.5px 32px !important;
+        @media screen and (max-width: 700px) {
+            @include button(modal, modal);
+        }
+        
+        &:last-child {
+            background-color: inherit;
+            border: solid 1px $color-button;
+            color: $color-button;
+        }
+        
+        &:hover {
+            background-color: $color-text;
+            &:last-child {
+                border: solid 1px $color-text;
+                color: white;
+            }
         }
     }
 }

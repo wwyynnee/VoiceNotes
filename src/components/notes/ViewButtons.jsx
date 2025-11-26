@@ -4,7 +4,7 @@ import NotesContext from '../../context/NotesContext'
 import styles from './View.module.scss';
 
 function ViewButtons() {
-    const { onOpenDownload } = useContext(NotesContext)
+    const { onOpenDownload, isDownloadActive, onOpenDelete, isDeleteActive } = useContext(NotesContext)
 
     return (
         <div className={styles.viewButtons}>
@@ -19,7 +19,7 @@ function ViewButtons() {
                 </NavLink>
             </div>
             <div className={styles.viewButtonsItems}>
-                <button onClick={onOpenDownload}>
+                <button onClick={onOpenDownload} className={isDownloadActive ? styles.viewButtonsItemsActive : ''}>
                     <span>Скачать</span>
                     <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M8.625 0.625C8.025 1.225 8 1.325 8 5.125V9H10H12V4.5V0H10.625C9.475 0 9.125 0.0999994 8.625 0.625Z" fill="white"/>
@@ -35,7 +35,7 @@ function ViewButtons() {
                         </svg>
                     </button>
                 </NavLink>
-                <button>
+                <button onClick={onOpenDelete} className={isDeleteActive ? styles.viewButtonsItemsActive : ''}>
                     <span>Удалить</span>
                     <svg width="17" height="20" viewBox="0 0 17 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M7.08333 0C6.30086 0 5.66667 0.639524 5.66667 1.42857V2.38095H1.88889C0.84575 2.38095 0 3.23381 0 4.28571V4.7619H15.1111C16.1542 4.7619 17 3.90905 17 2.85714V2.38095H11.3333V0H7.08333ZM15.5833 6.12816C15.4322 6.17102 15.2764 6.19048 15.1111 6.19048H1.41667V20H13.6944C14.7381 20 15.5833 19.1476 15.5833 18.0952V6.12816ZM4.72222 8.09524C5.24403 8.09524 5.66667 8.52143 5.66667 9.04762V18.0952H3.77778V9.04762C3.77778 8.52143 4.20042 8.09524 4.72222 8.09524ZM8.5 8.09524C9.02181 8.09524 9.44444 8.52143 9.44444 9.04762V18.0952H7.55556V9.04762C7.55556 8.52143 7.97819 8.09524 8.5 8.09524ZM12.2778 8.09524C12.7996 8.09524 13.2222 8.52143 13.2222 9.04762V18.0952H11.3333V9.04762C11.3333 8.52143 11.756 8.09524 12.2778 8.09524Z" fill="white"/>

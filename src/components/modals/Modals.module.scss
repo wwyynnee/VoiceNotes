@@ -81,12 +81,37 @@
     }
 
     &Download {
-        @include buttonModalFill;
+        @include buttonModalDownload;
 
         &Container {
             gap: 8px;
             &:first-child {
                 margin: 0;
+            }
+        }
+    }
+
+    &Default {
+        @include buttonModalDefault;
+
+        &Container {
+            gap: 8px;
+            &:first-child {
+                margin: 0;
+                flex-direction: column;
+                text-align: center;
+                gap: 2px;
+            }
+            &:last-child {
+                flex-direction: row;
+                text-align: center;
+                margin-top: 8px;
+            }
+
+            p {
+                @media screen and (max-width: 700px) {
+                    font-size: 24px !important;
+                }
             }
         }
     }

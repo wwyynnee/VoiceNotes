@@ -3,13 +3,16 @@ import { createContext } from "react";
 const NotesContext = createContext({
     onOpenSort: () => {},
     onCloseSort: () => {},
-    isSortActive: Boolean,
     onOpenSettings: () => {},
     onCloseSettings: () => {},
-    isSettingsActive: Boolean,
     onOpenDownload: () => {},
     onCloseDownload: () => {},
+    onOpenDelete: () => {},
+    onCloseDelete: () => {},
+    isSortActive: Boolean,
+    isSettingsActive: Boolean,
     isDownloadActive: Boolean,
+    isDeleteActive: Boolean
 })
 
 export default NotesContext
