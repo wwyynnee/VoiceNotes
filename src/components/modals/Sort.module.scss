@@ -10,7 +10,7 @@
         &Container {
             @extend %modal-block-container;
 
-            &:last-child {
+            &:not(:first-child) {
                 flex-direction: column;
 
                 button {

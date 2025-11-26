@@ -3,6 +3,7 @@ import styles from './Sort.module.scss'
 
 function Settings({ onCloseSettings }) {
     const [tabTheme, setTabTheme] = useState('light')
+    const [tabLang, setTabLang] = useState('russian')
 
     function CheckIcon() {
         return (
@@ -22,19 +23,37 @@ function Settings({ onCloseSettings }) {
                     </svg>
                 </div>
                 <div className={styles.modalBlockContainer}>
+                    <b>Тема приложения</b>
                     <button
-                        className={tabTheme === 'light' && styles.modalBlockContainerActive}
+                        className={tabTheme === 'light' ? styles.modalBlockContainerActive : ''}
                         onClick={() => setTabTheme('light')}
                     >
                         Светлая тема
                         {tabTheme === 'light' && <CheckIcon />}
                     </button>
                     <button
-                        className={tabTheme === 'dark' && styles.modalBlockContainerActive}
+                        className={tabTheme === 'dark' ? styles.modalBlockContainerActive : ''}
                         onClick={() => setTabTheme('dark')}
                     >
                         Темная тема
                         {tabTheme === 'dark' && <CheckIcon />}
+                    </button>
+                </div>
+                <div className={styles.modalBlockContainer}>
+                    <b>Язык приложения</b>
+                    <button
+                        className={tabLang === 'russian' ? styles.modalBlockContainerActive : ''}
+                        onClick={() => setTabLang('russian')}
+                    >
+                        Русский
+                        {tabLang === 'russian' && <CheckIcon />}
+                    </button>
+                    <button
+                        className={tabLang === 'english' ? styles.modalBlockContainerActive : ''}
+                        onClick={() => setTabLang('english')}
+                    >
+                        English
+                        {tabLang === 'english' && <CheckIcon />}
                     </button>
                 </div>
             </div>

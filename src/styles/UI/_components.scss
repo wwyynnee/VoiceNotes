@@ -79,6 +79,20 @@
             cursor: pointer;
         }
     }
+
+    b {
+        font-size: 24px;
+        font-weight: 600;
+        margin: 1rem 0;
+        &:first-child {
+            @media screen and (max-width: 700px) {
+                margin: 8px 0 1rem;
+            }
+        }
+        @media screen and (max-width: 700px) {
+            font-size: 22px;
+        }
+    }
 }
 %modal-block-container-active {
     background-color: $color-main;
@@ -92,6 +106,10 @@
     padding: 1rem;
     font-size: 20px;
     text-align: left;
+    @media screen and (max-width: 700px) {
+        font-size: 18px;
+    }
+
     &:not(.modalBlockContainerActive) {
         background-color: inherit;
         &:hover {

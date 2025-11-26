@@ -23,21 +23,21 @@ function Sort({ onCloseSort }) {
                 </div>
                 <div className={styles.modalBlockContainer}>
                     <button
-                        className={tab === 'title' && styles.modalBlockContainerActive}
+                        className={tab === 'title' ? styles.modalBlockContainerActive : ''}
                         onClick={() => setTab('title')}
                     >
                         По заголовку
                         {tab === 'title' && <CheckIcon />}
                     </button>
                     <button
-                        className={tab === 'createdAt' && styles.modalBlockContainerActive}
+                        className={tab === 'createdAt' ? styles.modalBlockContainerActive : ''}
                         onClick={() => setTab('createdAt')}
                     >
                         По дате создания
                         {tab === 'createdAt' && <CheckIcon />}
                     </button>
                     <button
-                        className={tab === 'updatedAt' && styles.modalBlockContainerActive}
+                        className={tab === 'updatedAt' ? styles.modalBlockContainerActive : ''}
                         onClick={() => setTab('updatedAt')}
                     >
                         По дате изменения
