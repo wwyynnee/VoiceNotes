@@ -2,14 +2,8 @@
 @import '../../styles/UI/components';
 
 .notes {
-    display: flex;
-    flex-direction: column;
+    @extend %block;
     gap: 24px;
-    margin: 48px auto;
-    width: min(100% - 2rem, 1200px);
-    @media screen and (max-width: 700px) {
-        margin: 24px auto;
-    }
 
     &Item {
         background-color: white;

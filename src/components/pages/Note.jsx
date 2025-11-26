@@ -1,6 +1,8 @@
+import View from "../notes/View";
+
 function Note() {
     return (
-        <h2>hello</h2>
+        <View />
     )
 }
 

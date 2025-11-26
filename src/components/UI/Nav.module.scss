@@ -40,25 +40,33 @@
                     gap: 10px;
                 }
 
-                button {
-                    @include button(auto, auto);
-
-                    &:nth-child(2) {
-                        display: none;
-                    }
-
-                    @media screen and (max-width: 700px) {
-                        &:first-child {
-                            display: none;
+                a {
+                    button {
+                        @include button(auto, auto);
+                        @media screen and (max-width: 700px) {
+                            @include button(50px, 50px);
                         }
-                        &:nth-child(2) {
-                            display: flex;
-                            width: 40px;
+                        
+                        span {
+                            @media screen and (max-width: 700px) {
+                                display: none;
+                            }
+                        }
+                        svg {
+                            display: none;
+                            @media screen and (max-width: 700px) {
+                                display: block;
+                            }
                         }
                     }
                 }
-                button ~ button {
+
+                button {
                     @include button(50px, 50px);
+
+                    svg {
+                        display: block;
+                    }
                 }
             }
 
