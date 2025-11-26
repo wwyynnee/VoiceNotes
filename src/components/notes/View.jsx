@@ -1,5 +1,5 @@
-import styles from './View.module.scss';
-import ViewButtons from './ViewButtons';
+import styles from './View.module.scss'
+import ViewButtons from './ViewButtons'
 
 function View() {
     return (

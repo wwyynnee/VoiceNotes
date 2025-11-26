@@ -6,7 +6,7 @@ function Notes() {
 
     function linkNote(e) {
         if (e.target.closest('button')) {
-            e.preventDefault();
+            e.preventDefault()
         }
     }
     function linkButtonEdit() {
