@@ -13,7 +13,7 @@
     @if $height == initial {
         padding: 14.5px 32px;
     }
-    @if $height == modal {
+    @if $width == modal {
         height: 50px;
         width: 100%;
     }
@@ -70,12 +70,10 @@
     }
 }
 @mixin buttonModalFill {
-    span {
-        margin: 8px 0 24px;
-    }
     button {
-        @include button(auto, auto);
-        text-align: left;
+        @include button(modal, modal);
+        justify-content: flex-start !important;
+        padding: 14.5px 32px !important;
         @media screen and (max-width: 700px) {
             @include button(modal, modal);
         }

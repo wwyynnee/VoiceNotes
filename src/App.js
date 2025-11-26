@@ -46,6 +46,7 @@ function App() {
       <BrowserRouter>
           <div className="App">
             <Nav />
+            
             <Routes>
               <Route index element={<Main />} />
               <Route path="/note" element={<Note />} />
