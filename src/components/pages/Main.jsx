@@ -1,5 +1,5 @@
-import Search from '../notes/Search';
-import List from '../notes/List';
+import Search from '../notes/Search'
+import List from '../notes/List'
 
 function Main() {
     return (

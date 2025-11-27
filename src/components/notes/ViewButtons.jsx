@@ -1,7 +1,7 @@
 import { useContext } from 'react'
-import { NavLink } from 'react-router';
+import { NavLink } from 'react-router'
 import NotesContext from '../../context/NotesContext'
-import styles from './View.module.scss';
+import styles from './View.module.scss'
 
 function ViewButtons() {
     const { onOpenDownload, isDownloadActive, onOpenDelete, isDeleteActive } = useContext(NotesContext)
@@ -46,4 +46,4 @@ function ViewButtons() {
     )
 }
 
-export default ViewButtons;
+export default ViewButtons

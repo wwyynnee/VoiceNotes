@@ -1,4 +1,4 @@
-import View from "../notes/View";
+import View from "../notes/View"
 
 function Note() {
     return (
