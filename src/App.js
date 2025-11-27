@@ -13,6 +13,7 @@ import Sort from './components/modals/Sort'
 import Settings from './components/modals/Settings'
 import Download from './components/modals/Download'
 import Delete from './components/modals/Detete'
+import Password from './components/modals/Password'
 
 import './App.scss'
 
@@ -21,6 +22,7 @@ function App() {
   const [settingsOpen, setSettingsOpen] = useState(false)
   const [downloadOpen, setDownloadOpen] = useState(false)
   const [deleteOpen, setDeleteOpen] = useState(false)
+  const [passwordOpen, setPasswordOpen] = useState(false)
 
   const toggleSortModal = () => setSortOpen(!sortOpen)
   const closeSortModal = () => setSortOpen(false)
@@ -34,6 +36,9 @@ function App() {
   const toggleDeleteModal = () => setDeleteOpen(!deleteOpen)
   const closeDeleteModal = () => setDeleteOpen(false)
 
+  const togglePasswordModal = () => setPasswordOpen(!passwordOpen)
+  const closePasswordModal = () => setPasswordOpen(false)
+
   const contextValue = {
     onOpenSort: toggleSortModal,
     onCloseSort: closeSortModal,
@@ -43,6 +48,8 @@ function App() {
     onCloseDownload: closeDownloadModal,
     onOpenDelete: toggleDeleteModal,
     onCloseDelete: closeDeleteModal,
+    onOpenPassword: togglePasswordModal,
+    onClosePassword: closePasswordModal,
     isSortActive: sortOpen,
     isSettingsActive: settingsOpen,
     isDownloadActive: downloadOpen,
@@ -64,6 +71,7 @@ function App() {
             {settingsOpen && <Settings />}
             {downloadOpen && <Download />}
             {deleteOpen && <Delete />}
+            {passwordOpen && <Password />}
           </div>
       </BrowserRouter>
     </NotesContext.Provider>

@@ -27,6 +27,21 @@
             }
         }
 
+        input {
+            border: solid 1px $color-text;
+            border-radius: 15px;
+            padding: 13.5px 1rem;
+            font-size: 18px;
+            margin: 8px 0;
+            width: 100%;
+            &::placeholder {
+                color: $color-grey;
+            }
+            @media screen and (max-width: 700px) {
+                margin: 1rem 0 8px;
+            }
+        }
+
         &Container {
             display: flex;
             &:first-child {
@@ -87,6 +102,22 @@
             gap: 8px;
             &:first-child {
                 margin: 0;
+            }
+        }
+    }
+
+    &Password {
+        &Container {
+            @media screen and (max-width: 700px) {
+                flex-direction: column !important;
+            }
+
+            &Opacity {
+                opacity: .4;
+                cursor: no-drop;
+                &:hover {
+                    background: $color-button !important;
+                }
             }
         }
     }
