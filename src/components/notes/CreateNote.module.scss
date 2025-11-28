@@ -1,0 +1,116 @@
+@import '../../styles/UI/colors';
+@import '../../styles/UI/components';
+
+.create {
+    @extend %block;
+    gap: 24px;
+    @media screen and (max-width: 700px) {
+        gap: 1rem;
+    }
+
+    &Buttons {
+        display: flex;
+        justify-content: space-between;
+
+        &Items {
+            display: flex;
+            gap: 1rem;
+            @media screen and (max-width: 700px) {
+                gap: 10px;
+            }
+
+            p {
+                display: flex;
+                flex-wrap: wrap;
+                align-items: center;
+                justify-content: flex-end;
+                gap: 4px;
+
+                span {
+                    font-weight: bold;
+                }
+            }
+
+            button {
+                @include button(auto, auto);
+                @media screen and (max-width: 700px) {
+                    @include button(50px, 50px);
+                }
+
+                &:first-child, &:nth-child(2) {
+                    @include button(50px, 50px);
+                    svg {
+                        display: block;
+                    }
+                }
+                &:nth-child(2) {
+                    svg {
+                        max-height: 24px;
+                        @media screen and (max-width: 700px) {
+                            height: 20px;
+                        }
+                    }
+                }
+
+                span {
+                    @media screen and (max-width: 700px) {
+                        display: none;
+                    }
+                }
+
+                svg {
+                    display: none;
+                    @media screen and (max-width: 700px) {
+                        display: block;
+                    }
+                }
+            }
+
+            &Active {
+                background-color: $color-text !important;
+            }
+        }
+    }
+
+    &Container {
+        display: flex;
+        flex-direction: column;
+        background-color: white;
+        border-radius: 20px;
+        padding: 32px 48px;
+        gap: 1rem;
+        &:last-child {
+            @media screen and (max-width: 700px) {
+                padding: 24px;
+            }
+        }
+        @media screen and (max-width: 700px) {
+            padding: 1rem 24px;
+        }
+
+        input {
+            font-size: 28px;
+            font-weight: 600;
+            &::placeholder {
+                color: $color-grey;
+            }
+        }
+    }
+
+    &Content {
+        font-size: 24px;
+        position: relative;
+        
+        div {   
+            outline: none;
+        }
+        div:empty:before {
+            content: attr(data-placeholder);
+            pointer-events: none;
+            color: $color-grey;
+        }
+        div:empty:focus::before {
+            content: none;
+        }
+    }
+}

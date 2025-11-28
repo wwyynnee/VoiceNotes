@@ -7,6 +7,7 @@ import Nav from './components/UI/Nav'
 // Страницы
 import Main from './components/pages/Main'
 import Note from './components/pages/Note'
+import CreateNote from './components/notes/CreateNote'
 
 // Модальные окна
 import Sort from './components/modals/Sort'
@@ -65,6 +66,7 @@ function App() {
             <Routes>
               <Route index element={<Main />} />
               <Route path="/note" element={<Note />} />
+              <Route path="/create" element={<CreateNote />} />
             </Routes>
 
             {sortOpen && <Sort />}
