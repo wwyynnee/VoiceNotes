@@ -30,6 +30,7 @@
         justify-content: center;
         height: calc($height - 10px);
         width: calc($width - 10px);
+        min-width: calc($width - 10px);
         padding: 0;
         @if $height == initial {
             padding: 14.5px 32px;

@@ -1,4 +1,4 @@
-import View from "../notes/CreateNote"
+import CreateNote from "../notes/CreateNote"
 
 function Create() {
     return (
