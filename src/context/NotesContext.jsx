@@ -9,12 +9,16 @@ const NotesContext = createContext({
     onCloseDownload: () => {},
     onOpenDelete: () => {},
     onCloseDelete: () => {},
+    onDelete: () => {},
     onOpenPassword: () => {},
     onClosePassword: () => {},
     isSortActive: Boolean,
     isSettingsActive: Boolean,
     isDownloadActive: Boolean,
-    isDeleteActive: Boolean
+    isDeleteActive: Boolean,
+    noteId: Number,
+    noteTitle: String,
+    notes: Array,
 })
 
 export default NotesContext

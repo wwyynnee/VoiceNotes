@@ -3,7 +3,7 @@ import { NavLink } from 'react-router'
 import NotesContext from '../../context/NotesContext'
 import styles from './View.module.scss'
 
-function ViewButtons() {
+function ViewButtons({ note }) {
     const { onOpenDownload, isDownloadActive, onOpenDelete, isDeleteActive } = useContext(NotesContext)
 
     return (
@@ -27,7 +27,7 @@ function ViewButtons() {
                         <path d="M0 15.5V20H10H20V15.5V11H19.375C19.025 11 18.45 11.275 18.125 11.625C17.55 12.2 17.5 12.4 17.5 14.875V17.5H10H2.5V14.875C2.5 12.4 2.45 12.2 1.875 11.625C1.55 11.275 0.975 11 0.625 11H0V15.5Z" fill="white"/>
                     </svg>
                 </button>
-                <NavLink to="/edit">
+                <NavLink to={`/edit/${note?.id}`}>
                     <button>
                         <span>Редактировать</span>                     
                         <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -35,7 +35,7 @@ function ViewButtons() {
                         </svg>
                     </button>
                 </NavLink>
-                <button onClick={onOpenDelete} className={isDeleteActive ? styles.viewButtonsItemsActive : ''}>
+                <button onClick={() => onOpenDelete(note)} className={isDeleteActive ? styles.viewButtonsItemsActive : ''}>
                     <span>Удалить</span>
                     <svg width="17" height="20" viewBox="0 0 17 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M7.08333 0C6.30086 0 5.66667 0.639524 5.66667 1.42857V2.38095H1.88889C0.84575 2.38095 0 3.23381 0 4.28571V4.7619H15.1111C16.1542 4.7619 17 3.90905 17 2.85714V2.38095H11.3333V0H7.08333ZM15.5833 6.12816C15.4322 6.17102 15.2764 6.19048 15.1111 6.19048H1.41667V20H13.6944C14.7381 20 15.5833 19.1476 15.5833 18.0952V6.12816ZM4.72222 8.09524C5.24403 8.09524 5.66667 8.52143 5.66667 9.04762V18.0952H3.77778V9.04762C3.77778 8.52143 4.20042 8.09524 4.72222 8.09524ZM8.5 8.09524C9.02181 8.09524 9.44444 8.52143 9.44444 9.04762V18.0952H7.55556V9.04762C7.55556 8.52143 7.97819 8.09524 8.5 8.09524ZM12.2778 8.09524C12.7996 8.09524 13.2222 8.52143 13.2222 9.04762V18.0952H11.3333V9.04762C11.3333 8.52143 11.756 8.09524 12.2778 8.09524Z" fill="white"/>

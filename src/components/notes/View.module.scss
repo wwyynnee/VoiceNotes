@@ -60,6 +60,8 @@
         border-radius: 20px;
         padding: 32px 48px;
         gap: 1rem;
+        font-size: 24px;
+        
         &:last-child {
             @media screen and (max-width: 700px) {
                 padding: 24px;
@@ -67,6 +69,7 @@
         }
         @media screen and (max-width: 700px) {
             padding: 1rem 24px;
+            font-size: 18px;
         }
 
         h1 {
@@ -75,12 +78,6 @@
             font-weight: 600;
             @media screen and (max-width: 700px) {
                 font-size: 20px;
-            }
-        }
-        p {
-            font-size: 24px;
-            @media screen and (max-width: 700px) {
-                font-size: 18px;
             }
         }
     }

@@ -1,5 +1,6 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router'
+import { getNotes, deleteNote } from './utils/db';
 import NotesContext from './context/NotesContext'
 
 import Nav from './components/UI/Nav'
@@ -19,24 +20,61 @@ import Password from './components/modals/Password'
 import './App.scss'
 
 function App() {
+  const [notes, setNotes] = useState([])
+
+  // загружаем заметки при открытии страницы
+  useEffect(() => {
+    async function load() {
+        const data = await getNotes()
+        // сортируем по дате создания
+        data.sort((a, b) => b.id - a.id)
+        setNotes(data)
+    }
+    
+    load()
+  }, [])
+
   const [sortOpen, setSortOpen] = useState(false)
   const [settingsOpen, setSettingsOpen] = useState(false)
   const [downloadOpen, setDownloadOpen] = useState(false)
-  const [deleteOpen, setDeleteOpen] = useState(false)
   const [passwordOpen, setPasswordOpen] = useState(false)
 
+  // модальное окно - ввод пароля заметки
   const toggleSortModal = () => setSortOpen(!sortOpen)
   const closeSortModal = () => setSortOpen(false)
 
+  // модальное окно - настройки
   const toggleSettingsModal = () => setSettingsOpen(!settingsOpen)
   const closeSettingsModal = () => setSettingsOpen(false)
 
+  // модальное окно - скачать заметку
   const toggleDownloadModal = () => setDownloadOpen(!downloadOpen)
   const closeDownloadModal = () => setDownloadOpen(false)
 
-  const toggleDeleteModal = () => setDeleteOpen(!deleteOpen)
-  const closeDeleteModal = () => setDeleteOpen(false)
+  // модальное окно - удаление заметки
+  const [deleteOpen, setDeleteOpen] = useState(false)
+  const [deleteNoteId, setDeleteNoteId] = useState(null)
+  const [deleteNoteTitle, setDeleteNoteTitle] = useState('')
 
+  const openDeleteModal = (note) => {
+    setDeleteNoteId(note.id)
+    setDeleteNoteTitle(note.title)
+    setDeleteOpen(true)
+  }
+  const closeDeleteModal = () => {
+    setDeleteOpen(false)
+  }
+  const handleDelete = async () => {
+    if (deleteNoteId !== null) {
+      await deleteNote(deleteNoteId)
+      setNotes(prev => prev.filter(note => note.id !== deleteNoteId))
+      closeDeleteModal()
+      setDeleteNoteId(null)
+      setDeleteNoteTitle('')
+    }
+  }
+
+  // модальное окно - ввод пароля заметки
   const togglePasswordModal = () => setPasswordOpen(!passwordOpen)
   const closePasswordModal = () => setPasswordOpen(false)
 
@@ -47,14 +85,18 @@ function App() {
     onCloseSettings: closeSettingsModal,
     onOpenDownload: toggleDownloadModal,
     onCloseDownload: closeDownloadModal,
-    onOpenDelete: toggleDeleteModal,
+    onOpenDelete: openDeleteModal,
     onCloseDelete: closeDeleteModal,
+    onDelete: handleDelete,
     onOpenPassword: togglePasswordModal,
     onClosePassword: closePasswordModal,
     isSortActive: sortOpen,
     isSettingsActive: settingsOpen,
     isDownloadActive: downloadOpen,
-    isDeleteActive: deleteOpen
+    isDeleteActive: deleteOpen,
+    noteId: deleteNoteId,
+    noteTitle: deleteNoteTitle,
+    notes: notes,
   }
 
   return (
@@ -65,7 +107,7 @@ function App() {
             
             <Routes>
               <Route index element={<Main />} />
-              <Route path="/note" element={<Note />} />
+              <Route path="/note/:id" element={<Note />} />
               <Route path="/create" element={<CreateNote />} />
             </Routes>
 
