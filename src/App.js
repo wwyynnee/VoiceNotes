@@ -8,7 +8,7 @@ import Nav from './components/UI/Nav'
 // Страницы
 import Main from './components/pages/Main'
 import Note from './components/pages/Note'
-import CreateNote from './components/notes/CreateNote'
+import Create from './components/pages/Create'
 
 // Модальные окна
 import Sort from './components/modals/Sort'
@@ -57,15 +57,15 @@ function App() {
   const [deleteNoteId, setDeleteNoteId] = useState(null)
   const [deleteNoteTitle, setDeleteNoteTitle] = useState('')
 
-  const openDeleteModal = (note) => {
+  function openDeleteModal(note)  {
     setDeleteNoteId(note.id)
     setDeleteNoteTitle(note.title)
     setDeleteOpen(true)
   }
-  const closeDeleteModal = () => {
+  function closeDeleteModal() {
     setDeleteOpen(false)
   }
-  const handleDelete = async () => {
+  async function handleDelete() {
     if (deleteNoteId !== null) {
       await deleteNote(deleteNoteId)
       setNotes(prev => prev.filter(note => note.id !== deleteNoteId))
@@ -79,6 +79,19 @@ function App() {
   const togglePasswordModal = () => setPasswordOpen(!passwordOpen)
   const closePasswordModal = () => setPasswordOpen(false)
 
+  // модальное окно - сохранение заметки
+  const [saveOpen, setSaveOpen] = useState(false)
+  const [saveTitle, setSaveTitle] = useState('')
+
+  function openSaveModal(title) {
+    setSaveTitle(title)
+    setSaveOpen(true)
+  }
+  function closeSaveModal() {
+    setSaveTitle('')
+    setSaveOpen(false)
+  }
+
   const contextValue = {
     onOpenSort: toggleSortModal,
     onCloseSort: closeSortModal,
@@ -91,6 +104,9 @@ function App() {
     onDelete: handleDelete,
     onOpenPassword: togglePasswordModal,
     onClosePassword: closePasswordModal,
+    onOpenSave: openSaveModal,
+    onCloseSave: closeSaveModal,
+    saveTitle: saveTitle,
     isSortActive: sortOpen,
     isSettingsActive: settingsOpen,
     isDownloadActive: downloadOpen,
@@ -109,7 +125,7 @@ function App() {
             <Routes>
               <Route index element={<Main />} />
               <Route path="/note/:id" element={<Note />} />
-              <Route path="/create" element={<CreateNote />} />
+              <Route path="/create" element={<Create />} />
             </Routes>
 
             {sortOpen && <Sort />}
@@ -117,7 +133,7 @@ function App() {
             {downloadOpen && <Download />}
             {deleteOpen && <Delete />}
             {passwordOpen && <Password />}
-            {<Save />}
+            {saveOpen && <Save />}
           </div>
       </BrowserRouter>
     </NotesContext.Provider>

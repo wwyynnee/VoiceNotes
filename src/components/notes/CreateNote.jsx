@@ -1,9 +1,12 @@
-import { useState } from 'react'
+import { useState, useContext } from 'react'
 import { NavLink } from 'react-router'
 import { addNote } from '../../utils/db'
+import NotesContext from '../../context/NotesContext'
 import styles from './CreateNote.module.scss'
 
 function CreateNote() {
+    const { onOpenSave } = useContext(NotesContext)
+
     const [title, setTitle] = useState('')
     const [text, setText] = useState('')
 
@@ -16,7 +19,7 @@ function CreateNote() {
             createdAt: Date.now()
         })
     
-        alert('Заметка сохранена!')
+        onOpenSave(title)
         setTitle('')
         setText('')
     }
