@@ -13,13 +13,15 @@ function CreateNote() {
     async function saveNote() {
         if (!text.trim()) return
     
-        await addNote({
+        const id = await addNote({
             title: title.trim(),
             content: text,
             createdAt: Date.now()
         })
+
+        const finalTitle = title?.trim() ? title : `Заметка №${id}`
     
-        onOpenSave(title)
+        onOpenSave(finalTitle)
         setTitle('')
         setText('')
     }
