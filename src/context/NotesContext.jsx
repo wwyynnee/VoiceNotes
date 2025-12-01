@@ -14,6 +14,7 @@ const NotesContext = createContext({
     onClosePassword: () => {},
     onOpenSave: () => {},
     onCloseSave: () => {},
+    onSave: () => {},
     saveTitle: String,
     isSortActive: Boolean,
     isSettingsActive: Boolean,

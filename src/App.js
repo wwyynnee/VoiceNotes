@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router'
-import { getNotes, deleteNote } from './utils/db';
+import { getNotes, getNoteById, addNote, deleteNote } from './utils/db';
 import NotesContext from './context/NotesContext'
 
 import Nav from './components/UI/Nav'
@@ -87,9 +87,17 @@ function App() {
     setSaveTitle(title)
     setSaveOpen(true)
   }
-  function closeSaveModal() {
+  async function closeSaveModal() {
     setSaveTitle('')
     setSaveOpen(false)
+  }
+  async function handleSave(note) {
+    const id = await addNote(note)
+    const saved = await getNoteById(id)
+  
+    setNotes(prev => [...prev, saved])
+  
+    return id
   }
 
   const contextValue = {
@@ -99,13 +107,18 @@ function App() {
     onCloseSettings: closeSettingsModal,
     onOpenDownload: toggleDownloadModal,
     onCloseDownload: closeDownloadModal,
+
     onOpenDelete: openDeleteModal,
     onCloseDelete: closeDeleteModal,
     onDelete: handleDelete,
+
     onOpenPassword: togglePasswordModal,
     onClosePassword: closePasswordModal,
+
     onOpenSave: openSaveModal,
     onCloseSave: closeSaveModal,
+    onSave: handleSave,
+    
     saveTitle: saveTitle,
     isSortActive: sortOpen,
     isSettingsActive: settingsOpen,

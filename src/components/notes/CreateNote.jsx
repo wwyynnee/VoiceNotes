@@ -5,7 +5,7 @@ import NotesContext from '../../context/NotesContext'
 import styles from './CreateNote.module.scss'
 
 function CreateNote() {
-    const { onOpenSave } = useContext(NotesContext)
+    const { onSave, onOpenSave } = useContext(NotesContext)
 
     const [title, setTitle] = useState('')
     const [text, setText] = useState('')
@@ -13,13 +13,15 @@ function CreateNote() {
     async function saveNote() {
         if (!text.trim()) return
     
-        const id = await addNote({
+        const note = ({
             title: title.trim(),
             content: text,
             createdAt: Date.now()
         })
 
-        const finalTitle = title?.trim() ? title : `Заметка №${id}`
+        const id = await onSave(note)
+
+        const finalTitle = title.trim() || `Заметка №${id}`
     
         onOpenSave(finalTitle)
         setTitle('')
