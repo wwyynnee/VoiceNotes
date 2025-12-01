@@ -16,6 +16,7 @@ import Settings from './components/modals/Settings'
 import Download from './components/modals/Download'
 import Delete from './components/modals/Detete'
 import Password from './components/modals/Password'
+import Save from './components/modals/Save'
 
 import './App.scss'
 
@@ -116,6 +117,7 @@ function App() {
             {downloadOpen && <Download />}
             {deleteOpen && <Delete />}
             {passwordOpen && <Password />}
+            {<Save />}
           </div>
       </BrowserRouter>
     </NotesContext.Provider>

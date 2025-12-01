@@ -93,7 +93,7 @@
             @include button(modal, modal);
         }
         
-        &:last-child {
+        &:last-child:not(.modalDefaultContainerFull button) {
             background-color: inherit;
             border: solid 1px $color-button;
             color: $color-button;

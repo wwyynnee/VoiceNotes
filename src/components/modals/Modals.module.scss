@@ -144,6 +144,14 @@
                     font-size: 24px !important;
                 }
             }
+
+            &Full {
+                button {
+                    background-color: $color-button;
+                    border: solid 1px $color-button;
+                    color: white;
+                }
+            }
         }
     }
 }
