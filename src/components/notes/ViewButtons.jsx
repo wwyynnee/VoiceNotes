@@ -19,7 +19,7 @@ function ViewButtons({ note }) {
                 </NavLink>
             </div>
             <div className={styles.viewButtonsItems}>
-                <button onClick={onOpenDownload} className={isDownloadActive ? styles.viewButtonsItemsActive : ''}>
+                <button onClick={() => onOpenDownload(note)} className={isDownloadActive ? styles.viewButtonsItemsActive : ''}>
                     <span>Скачать</span>
                     <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M8.625 0.625C8.025 1.225 8 1.325 8 5.125V9H10H12V4.5V0H10.625C9.475 0 9.125 0.0999994 8.625 0.625Z" fill="white"/>

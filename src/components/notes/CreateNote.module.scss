@@ -81,6 +81,9 @@
                     background-color: $color-button !important;
                 }
             }
+            &Active {
+                background-color: $color-text;
+            }
         }
     }
 

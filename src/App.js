@@ -50,8 +50,15 @@ function App() {
 
   // модальное окно - скачать заметку
   const [downloadOpen, setDownloadOpen] = useState(false)
+  const [downloadNoteId, setDownloadNoteId] = useState(null)
+  const [downloadNoteTitle, setDownloadNoteTitle] = useState('')
 
-  const toggleDownloadModal = () => setDownloadOpen(!downloadOpen)
+  function openDownloadModal(note) {
+    setDownloadOpen(true)
+    setDownloadNoteId(note.id)
+    setDownloadNoteTitle(note.title)
+  }
+
   const closeDownloadModal = () => setDownloadOpen(false)
 
   // модальное окно - удаление заметки
@@ -59,7 +66,7 @@ function App() {
   const [deleteNoteId, setDeleteNoteId] = useState(null)
   const [deleteNoteTitle, setDeleteNoteTitle] = useState('')
 
-  function openDeleteModal(note)  {
+  function openDeleteModal(note) {
     setDeleteNoteId(note.id)
     setDeleteNoteTitle(note.title)
     setDeleteOpen(true)
@@ -115,9 +122,11 @@ function App() {
   const contextValue = {
     onOpenSort: toggleSortModal,
     onCloseSort: closeSortModal,
+
     onOpenSettings: toggleSettingsModal,
     onCloseSettings: closeSettingsModal,
-    onOpenDownload: toggleDownloadModal,
+
+    onOpenDownload: openDownloadModal,
     onCloseDownload: closeDownloadModal,
 
     onOpenDelete: openDeleteModal,
@@ -142,6 +151,8 @@ function App() {
     isPasswordActive: addPassword,
     noteId: deleteNoteId,
     noteTitle: deleteNoteTitle,
+    noteIdDownload: downloadNoteId,
+    noteTitleDownload: downloadNoteTitle,
     notes: notes,
   }
 

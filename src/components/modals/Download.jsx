@@ -3,7 +3,7 @@ import NotesContext from '../../context/NotesContext'
 import styles from './Modals.module.scss'
 
 function Download() {
-    const { onCloseDownload } = useContext(NotesContext)
+    const { onCloseDownload, noteTitleDownload } = useContext(NotesContext)
 
     return (
         <div className={styles.modal} onClick={onCloseDownload}>
@@ -15,7 +15,7 @@ function Download() {
                     </svg>
                 </div>
                 <div className={`${styles.modalBlockContainer} ${styles.modalDownloadContainer}`}>
-                    <span>Заметку «Название заметки»</span>
+                    <span>Заметку «{noteTitleDownload}»</span>
                     <button>Текстовой файл</button>
                     <button>Аудиофайл</button>
                 </div>
