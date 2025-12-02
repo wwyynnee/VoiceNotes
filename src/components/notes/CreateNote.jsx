@@ -4,7 +4,7 @@ import NotesContext from '../../context/NotesContext'
 import styles from './CreateNote.module.scss'
 
 function CreateNote() {
-    const { onSave, onOpenSave, onOpenAddPassword, isPasswordActive } = useContext(NotesContext)
+    const { onSave, onOpenSave, onOpenAddPassword, isPasswordActive, isSaveActive } = useContext(NotesContext)
 
     const [title, setTitle] = useState('')
     const [text, setText] = useState('')
@@ -23,8 +23,6 @@ function CreateNote() {
         const finalTitle = title.trim() || `Заметка №${id}`
     
         onOpenSave(finalTitle)
-        setTitle('')
-        setText('')
     }
 
     async function addPasswordNote() {
@@ -63,7 +61,7 @@ function CreateNote() {
                             <path d="M6.78132 0.145168C5.12675 0.681155 3.70522 1.89295 2.9362 3.431C2.70316 3.87377 2.47012 4.94574 2.40021 5.80798L2.28369 7.39264H3.72852H5.15005V6.27406C5.15005 4.96905 5.75595 3.85047 6.82793 3.19796C8.99518 1.86965 11.6751 3.64073 11.6751 6.39058V7.39264H13.0966H14.5415L14.425 5.80798C14.2618 3.431 13.0966 1.61331 11.0925 0.58794C10.0905 0.0752568 7.73677 -0.181085 6.78132 0.145168Z" fill="white"/>
                         </svg>
                     </button>
-                    <button onClick={saveNote} className={!text.trim() ? styles.createButtonsItemsInactive : ''}>
+                    <button onClick={saveNote} className={`${!text.trim() ? styles.createButtonsItemsInactive : ''} ${isSaveActive ? styles.createButtonsItemsActive : ''}`}>
                         <span>Сохранить</span>
                         <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M0 8.23333C0 13.2032 0.0212865 16.6586 0.0532163 16.9572C0.22883 18.605 1.43684 19.7941 3.10251 19.9541C3.44842 19.9914 6.61479 20.0074 11.814 19.9968L19.9827 19.9808L19.9987 11.7954C20.004 6.64425 19.9934 3.41278 19.9614 3.07683C19.8976 2.44227 19.7539 1.98901 19.4772 1.56241C19.1792 1.10382 18.9237 0.842529 18.4927 0.549244C17.8488 0.122646 17.588 0.0533237 16.4864 0.0213299L15.5392 0V3.33813V6.68158L10.6539 6.66559L5.77397 6.64959L5.41742 6.47362C4.99701 6.26565 4.73093 5.9777 4.5766 5.57243C4.47549 5.30047 4.47017 5.1565 4.47017 2.65024V0.010664H2.23509H0V8.23333ZM16.6567 13.5818V17.1812H10.0047H3.35263V14.579C3.35263 11.8061 3.36327 11.6568 3.62403 11.1449C3.76772 10.8622 4.2307 10.3983 4.51274 10.2543C5.04491 9.98238 4.8959 9.98771 10.9785 9.98771L16.6567 9.98238V13.5818Z" fill="white"/>

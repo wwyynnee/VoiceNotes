@@ -149,6 +149,7 @@ function App() {
     isDownloadActive: downloadOpen,
     isDeleteActive: deleteOpen,
     isPasswordActive: addPassword,
+    isSaveActive: saveOpen,
     noteId: deleteNoteId,
     noteTitle: deleteNoteTitle,
     noteIdDownload: downloadNoteId,
