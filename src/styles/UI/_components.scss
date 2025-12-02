@@ -100,10 +100,10 @@
         }
         
         &:hover {
-            background-color: $color-text;
+            background-color: $color-text !important;
             &:last-child {
-                border: solid 1px $color-text;
-                color: white;
+                border: solid 1px $color-text !important;
+                color: white !important;
             }
         }
     }

@@ -62,7 +62,18 @@ function App() {
   
       return sorted
     })
-  }  
+  }
+
+  // Поиск по заметкам
+  const [searchQuery, setSearchQuery] = useState('');
+
+  const filteredNotes = notes.filter(note =>
+    note.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    note.content.toLowerCase().includes(searchQuery.toLowerCase())
+  )
+
+  console.log(filteredNotes)
+
 
   // модальное окно - настройки
   const [settingsOpen, setSettingsOpen] = useState(false)
@@ -142,6 +153,10 @@ function App() {
 
 
   const contextValue = {
+    searchQuery,
+    setSearchQuery,
+    filteredNotes,
+
     onOpenSort: toggleSortModal,
     onCloseSort: closeSortModal,
     onSortNotes: sortNotes,

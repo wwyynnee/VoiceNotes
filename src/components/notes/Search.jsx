@@ -3,7 +3,7 @@ import NotesContext from '../../context/NotesContext'
 import styles from './Search.module.scss'
 
 function Search({ type }) {
-    const { onOpenSort, isSortActive } = useContext(NotesContext)
+    const { onOpenSort, isSortActive, searchQuery, setSearchQuery } = useContext(NotesContext)
 
     return (
         <div className={`${styles.search} ${type === 'mobile' && styles.searchMobile}`}>
@@ -14,7 +14,7 @@ function Search({ type }) {
                     <rect y="14" width="16" height="2" fill="#222222"/>
                 </svg>
             </button>
-            <input type="text" name="search" placeholder='Найти заметку' />
+            <input type="text" name="search" placeholder='Найти заметку' value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} />
         </div>
     )
 }

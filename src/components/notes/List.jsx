@@ -4,7 +4,7 @@ import NotesContext from '../../context/NotesContext'
 import styles from './List.module.scss'
 
 function Notes() {
-    const { onOpenDownload, isDownloadActive, noteIdDownload, onOpenDelete, isDeleteActive, noteId, notes } = useContext(NotesContext)
+    const { onOpenDownload, isDownloadActive, noteIdDownload, onOpenDelete, isDeleteActive, noteId, filteredNotes } = useContext(NotesContext)
     const navigate = useNavigate()   
 
     function formatDate(timestamp) {
@@ -34,7 +34,7 @@ function Notes() {
     return (
         <div className={styles.notes}>
 
-            {notes.length === 0 && (
+            {filteredNotes.length === 0 && (
                 <div className={styles.notesEmpty}>
                     <p>Пока пусто</p>
                     <p>Запиши свою первую заметку!</p>
@@ -42,7 +42,7 @@ function Notes() {
                 </div>
             )}
 
-            {notes.map(note => (
+            {filteredNotes.map(note => (
                 <NavLink key={note.id} to={`/note/${note.id}`} className={styles.notesItem}
                 onClick={linkNote}>
                     <div className={styles.notesItemContainer}>

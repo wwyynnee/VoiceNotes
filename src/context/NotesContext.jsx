@@ -1,8 +1,13 @@
 import { createContext } from "react"
 
 const NotesContext = createContext({
+    searchQuery: String,
+    setSearchQuery: () => {},
+    filteredNotes: Array,
+
     onOpenSort: () => {},
     onCloseSort: () => {},
+    onSortNotes: () => {},
 
     onOpenSettings: () => {},
     onCloseSettings: () => {},
