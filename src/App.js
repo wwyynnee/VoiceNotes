@@ -17,6 +17,7 @@ import Download from './components/modals/Download'
 import Delete from './components/modals/Detete'
 import Password from './components/modals/Password'
 import Save from './components/modals/Save'
+import AddPassword from './components/modals/AddPassword';
 
 import './App.scss'
 
@@ -35,20 +36,21 @@ function App() {
     load()
   }, [])
 
-  const [sortOpen, setSortOpen] = useState(false)
-  const [settingsOpen, setSettingsOpen] = useState(false)
-  const [downloadOpen, setDownloadOpen] = useState(false)
-  const [passwordOpen, setPasswordOpen] = useState(false)
-
   // модальное окно - ввод пароля заметки
+  const [sortOpen, setSortOpen] = useState(false)
+
   const toggleSortModal = () => setSortOpen(!sortOpen)
   const closeSortModal = () => setSortOpen(false)
 
   // модальное окно - настройки
+  const [settingsOpen, setSettingsOpen] = useState(false)
+
   const toggleSettingsModal = () => setSettingsOpen(!settingsOpen)
   const closeSettingsModal = () => setSettingsOpen(false)
 
   // модальное окно - скачать заметку
+  const [downloadOpen, setDownloadOpen] = useState(false)
+
   const toggleDownloadModal = () => setDownloadOpen(!downloadOpen)
   const closeDownloadModal = () => setDownloadOpen(false)
 
@@ -76,6 +78,8 @@ function App() {
   }
 
   // модальное окно - ввод пароля заметки
+  const [passwordOpen, setPasswordOpen] = useState(false)
+
   const togglePasswordModal = () => setPasswordOpen(!passwordOpen)
   const closePasswordModal = () => setPasswordOpen(false)
 
@@ -100,6 +104,14 @@ function App() {
     return id
   }
 
+  // модальное окно - установка пароля
+  const [addPassword, setAddPassword] = useState(false)
+
+  const toggleAddDownloadModal = () => setAddPassword(!addPassword)
+  const closeAddDownloadModal = () => setAddPassword(false)
+
+
+
   const contextValue = {
     onOpenSort: toggleSortModal,
     onCloseSort: closeSortModal,
@@ -118,12 +130,16 @@ function App() {
     onOpenSave: openSaveModal,
     onCloseSave: closeSaveModal,
     onSave: handleSave,
+
+    onOpenAddPassword: toggleAddDownloadModal,
+    onCloseAddPassword: closeAddDownloadModal,
     
     saveTitle: saveTitle,
     isSortActive: sortOpen,
     isSettingsActive: settingsOpen,
     isDownloadActive: downloadOpen,
     isDeleteActive: deleteOpen,
+    isPasswordActive: addPassword,
     noteId: deleteNoteId,
     noteTitle: deleteNoteTitle,
     notes: notes,
@@ -147,6 +163,7 @@ function App() {
             {deleteOpen && <Delete />}
             {passwordOpen && <Password />}
             {saveOpen && <Save />}
+            {addPassword && <AddPassword />}
           </div>
       </BrowserRouter>
     </NotesContext.Provider>
