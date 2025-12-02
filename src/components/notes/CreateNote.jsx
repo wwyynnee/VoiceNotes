@@ -1,5 +1,6 @@
-import { useState, useContext } from 'react'
+import { useEffect, useRef, useState, useContext } from 'react'
 import { NavLink } from 'react-router'
+import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition'
 import NotesContext from '../../context/NotesContext'
 import styles from './CreateNote.module.scss'
 
@@ -23,12 +24,57 @@ function CreateNote() {
         const finalTitle = title.trim() || `Заметка №${id}`
     
         onOpenSave(finalTitle)
+        stopRecognition()
     }
 
     async function addPasswordNote() {
         if (!text.trim()) return
 
         onOpenAddPassword(true)
+        stopRecognition()
+    }
+
+    // голосовой ввод
+    const [prev, setPrev] = useState('')
+    const editorRef = useRef(null)
+    const { transcript, listening, resetTranscript } = useSpeechRecognition()
+
+    useEffect(() => {
+        if (!listening) {
+          setPrev('') 
+          return
+        }
+      
+        if (transcript.length <= prev.length) return
+      
+        const newPart = transcript.slice(prev.length)
+
+        setText(prev => prev + newPart)
+        setPrev(transcript)
+      }, [transcript, listening])
+
+    function startRecognition() {
+        resetTranscript()
+        setPrev('')
+        SpeechRecognition.startListening({
+            continuous: true,
+            language: 'ru-RU',
+        })
+    }
+
+    function stopRecognition() {
+        SpeechRecognition.stopListening()
+        setPrev('')
+
+        setText(prev => {
+            if (!prev) return prev
+            if (/[A-Za-zА-Яа-я0-9Ёё]/.test(prev.slice(-1))) return prev + ' '  
+            return prev
+        })
+    }
+
+    function handleInput(e) {
+        setText(e.currentTarget.innerHTML)
     }
 
     return (
@@ -45,15 +91,21 @@ function CreateNote() {
                     </NavLink>
                 </div>
                 <div className={styles.createButtonsItems}>
-                    <p>Микрофон: <span>выключен</span></p>
-                    <button>
+                    <p>Микрофон: <span>{listening ? 'включен' : 'выключен'}</span></p>
+                    {!listening && <button onClick={startRecognition}>
                         <svg width="17" height="20" viewBox="0 0 17 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M5.22668 0.0292606C4.63709 0.125435 3.9806 0.531038 3.60844 1.02027C3.3032 1.42587 3.14848 1.81893 3.06903 2.39179L3.04395 2.59251L4.35275 2.60087L5.66573 2.61341L5.67828 2.87685C5.70336 3.36608 5.49011 3.84277 5.1305 4.10202C4.84616 4.30691 4.62872 4.34873 3.79661 4.34873H3.05231V4.99685V5.64498H4.37365H5.69918L5.67828 6.02132C5.64064 6.64436 5.39812 7.03741 4.89216 7.2883C4.72072 7.37193 4.63291 7.3803 3.88024 7.39284L3.05231 7.40957V8.05351V8.69746H4.37365H5.69918L5.67828 9.06961C5.64064 9.69265 5.42321 10.0606 4.94234 10.2948L4.66636 10.4328L3.85933 10.4453L3.05231 10.462L3.06067 11.3234L3.07322 12.189L5.17232 12.2015L7.27142 12.2099L7.76483 11.7165C8.26661 11.2105 8.70148 10.8886 9.2618 10.6042L9.5545 10.4579L8.91056 10.4537H8.26661L8.28752 10.0773C8.32515 9.45431 8.56768 9.06125 9.07363 8.81454C9.24507 8.73091 9.33707 8.71837 10.0897 8.70582L10.9135 8.6891V8.04515V7.4012H9.59214H8.26661L8.28752 7.02487C8.30842 6.71126 8.33351 6.59836 8.44223 6.37674C8.59276 6.07568 8.7433 5.92932 9.07363 5.77461C9.29107 5.67007 9.34543 5.66589 10.1106 5.65335L10.9135 5.63662V4.99267V4.34873H9.59214H8.26661L8.28752 3.97657C8.32515 3.35772 8.57604 2.95629 9.06945 2.72213C9.29107 2.61759 9.34125 2.61341 10.1106 2.60087L10.9135 2.58414V1.29207V-9.53674e-06L8.12444 0.00417233C6.58566 0.00835323 5.28522 0.0208979 5.22668 0.0292606Z" fill="white"/>
                             <path d="M1.33807 6.58167C0.664855 6.76147 0.171441 7.2967 0.0418148 7.98246C0.0167259 8.12463 0 9.5756 0 11.9423V15.6806H2.40435H4.8087L4.80033 16.5461L4.78779 17.4159L4.11875 17.4368C3.4999 17.4577 3.43299 17.4702 3.21974 17.5706C2.63015 17.8591 2.32072 18.3023 2.19946 19.0132L2.17855 19.1512H4.72507C6.13004 19.1512 7.27577 19.1428 7.27577 19.1345C7.27577 19.1261 7.18796 18.9923 7.08342 18.8334C6.1844 17.4953 5.89588 15.8478 6.28894 14.3007L6.38093 13.9243H4.06858H1.75622V10.2237V6.52313L1.64332 6.52731C1.57642 6.52731 1.44261 6.5524 1.33807 6.58167Z" fill="white"/>
                             <path d="M12.21 8.27095V10.0188L12.6407 10.0857C12.8748 10.1233 13.2261 10.207 13.4226 10.2655C13.6191 10.3241 13.8198 10.3868 13.8742 10.3993L13.9662 10.4202V9.34141C13.9662 8.74346 13.9495 8.14969 13.9244 8.0117C13.8407 7.50156 13.5104 7.01232 13.0839 6.76144C12.8957 6.65272 12.4776 6.52309 12.3061 6.52309H12.21V8.27095Z" fill="white"/>
                             <path d="M10.9053 11.4154C9.02365 11.8127 7.62704 13.3682 7.44723 15.2666C7.24652 17.3866 8.61387 19.3351 10.6879 19.8913C11.0558 19.9875 11.1771 20 11.7709 20C12.3605 20 12.4901 19.9875 12.8455 19.8913C16.0653 19.0299 17.2068 15.1202 14.9446 12.7117C14.2881 12.0134 13.456 11.5576 12.5445 11.3903C12.1012 11.3109 11.3444 11.3234 10.9053 11.4154ZM12.3647 12.695C12.5445 12.7326 12.8079 12.8162 12.9584 12.8831L13.2302 13.0086L11.1729 15.0659C8.83967 17.3949 9.08637 17.2277 8.88566 16.6297C8.7184 16.1447 8.69331 15.4673 8.81876 14.9655C9.04874 14.0456 9.60488 13.3682 10.4746 12.9417C11.0851 12.6406 11.7123 12.5612 12.3647 12.695ZM14.5767 14.493C14.7355 14.8526 14.8025 15.1997 14.8025 15.6805C14.8025 16.2158 14.7272 16.5545 14.5097 16.9977C14.1209 17.8005 13.3891 18.3985 12.5026 18.6368C11.9298 18.7916 11.1018 18.7163 10.5373 18.457L10.3115 18.3525L12.3563 16.3078C13.4853 15.1788 14.4219 14.2588 14.4387 14.2588C14.4554 14.2588 14.5181 14.3634 14.5767 14.493Z" fill="white"/>
                         </svg>
-                    </button>
+                    </button>}
+                    {listening && <button onClick={stopRecognition} className={styles.createButtonsItemsActive}>
+                        <svg width="14" height="20" viewBox="0 0 14 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M5.3944 0.0468855C4.54579 0.170552 3.80805 0.690808 3.41572 1.44561C3.09589 2.05968 3.11295 1.71 3.11295 7.62044V12.9211H6.6524H10.1918V6.46053V-2.28882e-05L7.92319 0.00424099C6.67372 0.00850582 5.53513 0.0255632 5.3944 0.0468855ZM7.0831 8.08953C7.39014 8.18761 7.79952 8.5842 7.90186 8.88697C8.11508 9.51383 7.85496 10.1961 7.28779 10.5117C7.07884 10.6268 7.0234 10.6396 6.6524 10.6396C6.28139 10.6396 6.22596 10.6268 6.017 10.5117C5.44984 10.1961 5.18971 9.51383 5.40293 8.88697C5.50101 8.59699 5.91466 8.18761 6.20464 8.09379C6.48609 7.99997 6.80165 7.99997 7.0831 8.08953Z" fill="white"/>
+                            <path d="M1.20256 6.77612C0.729211 6.93817 0.345416 7.29638 0.119403 7.78679L0.021322 7.99574L0.00852878 11.9915L0 15.9915L2.65245 16L5.30917 16.0128V17.1215V18.2303L4.86141 18.2516C4.47335 18.2687 4.37527 18.29 4.12793 18.4094C3.59062 18.661 3.18124 19.2154 3.1258 19.7612L3.10021 20H6.65245H10.2047L10.1791 19.7655C10.1322 19.3006 9.8081 18.7846 9.40725 18.5288C9.08315 18.3241 8.9339 18.2815 8.4435 18.2559L7.99573 18.2303V17.1215V16.0128L10.6525 16L13.3049 15.9915L13.2964 11.9915L13.2836 7.99574L13.1429 7.70576C12.8827 7.17271 12.3284 6.76333 11.7996 6.70789L11.5565 6.68231L11.548 10.452L11.5352 14.2218H6.65245H1.76972L1.75693 10.4563L1.7484 6.6951H1.58635C1.50107 6.69937 1.32623 6.73348 1.20256 6.77612Z" fill="white"/>
+                        </svg>
+                    </button>}
                     <button onClick={addPasswordNote} className={`${!text.trim() ? styles.createButtonsItemsInactive : ''} ${isPasswordActive ? styles.createButtonsItemsActive : ''}`}>
                         <span>Установить пароль</span>                   
                         <svg width="17" height="20" viewBox="0 0 17 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -74,7 +126,14 @@ function CreateNote() {
                 <input name="nameNote" placeholder="Название заметки" onChange={(e) => setTitle(e.target.value)} />
             </div>
             <div className={`${styles.createContainer} ${styles.createContent}`}>
-                <div contentEditable="true" data-placeholder="Текст" onInput={(e) => setText(e.currentTarget.innerHTML)}></div>
+                <div
+                    ref={editorRef}
+                    contentEditable
+                    data-placeholder="Текст"
+                    onInput={handleInput}
+                    suppressContentEditableWarning={true}
+                    dangerouslySetInnerHTML={{ __html: text }}
+                ></div>
             </div>
         </div>
     )
