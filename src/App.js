@@ -27,20 +27,42 @@ function App() {
   // загружаем заметки при открытии страницы
   useEffect(() => {
     async function load() {
-        const data = await getNotes()
-        // сортируем по дате создания
-        data.sort((a, b) => b.id - a.id)
-        setNotes(data)
+      const data = await getNotes()
+      setNotes(data)
+
+      // сортировка по сохраненному tab
+      const savedTab = localStorage.getItem('sortTab') || 'createdAt'
+      if (savedTab === 'title') data.sort((a,b) => a.title.localeCompare(b.title))
+      if (savedTab === 'createdAt') data.sort((a,b) => b.createdAt - a.createdAt)
+      if (savedTab === 'updatedAt') data.sort((a,b) => b.updatedAt - a.updatedAt)
+
+      setNotes(data)
     }
     
     load()
   }, [])
 
-  // модальное окно - ввод пароля заметки
+  // модальное окно - сортировка
   const [sortOpen, setSortOpen] = useState(false)
 
   const toggleSortModal = () => setSortOpen(!sortOpen)
   const closeSortModal = () => setSortOpen(false)
+
+  function sortNotes(tab) {
+    setNotes(prevNotes => {
+      const sorted = [...prevNotes]
+  
+      if (tab === 'title') {
+        sorted.sort((a, b) => a.title.localeCompare(b.title))
+      } else if (tab === 'createdAt') {
+        sorted.sort((a, b) => b.createdAt - a.createdAt)
+      } else if (tab === 'updatedAt') {
+        sorted.sort((a, b) => b.updatedAt - a.updatedAt)
+      }
+  
+      return sorted
+    })
+  }  
 
   // модальное окно - настройки
   const [settingsOpen, setSettingsOpen] = useState(false)
@@ -122,6 +144,7 @@ function App() {
   const contextValue = {
     onOpenSort: toggleSortModal,
     onCloseSort: closeSortModal,
+    onSortNotes: sortNotes,
 
     onOpenSettings: toggleSettingsModal,
     onCloseSettings: closeSettingsModal,

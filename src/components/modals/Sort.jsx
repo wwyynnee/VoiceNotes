@@ -1,11 +1,21 @@
-import { useContext, useState } from 'react'
+import { useContext, useState, useEffect } from 'react'
 import NotesContext from '../../context/NotesContext'
 import styles from './Modals.module.scss'
 
 function Sort() {
-    const { onCloseSort } = useContext(NotesContext)
+    const { onCloseSort, onSortNotes } = useContext(NotesContext)
 
-    const [tab, setTab] = useState('createdAt')
+    const [tab, setTab] = useState(() => localStorage.getItem('sortTab') || 'createdAt')
+
+    useEffect(() => {
+        onSortNotes(tab)
+    }, [tab, onSortNotes])
+
+    function handleClick(newTab) {
+        setTab(newTab)
+        onSortNotes(newTab)
+        localStorage.setItem('sortTab', newTab)
+    }
 
     function CheckIcon() {
         return (
@@ -27,21 +37,21 @@ function Sort() {
                 <div className={`${styles.modalBlockContainer} ${styles.modalBlockDefault}`}>
                     <button
                         className={tab === 'title' ? styles.modalBlockContainerActive : ''}
-                        onClick={() => setTab('title')}
+                        onClick={() => {handleClick('title')}}
                     >
                         По заголовку
                         {tab === 'title' && <CheckIcon />}
                     </button>
                     <button
                         className={tab === 'createdAt' ? styles.modalBlockContainerActive : ''}
-                        onClick={() => setTab('createdAt')}
+                        onClick={() => {handleClick('createdAt')}}
                     >
                         По дате создания
                         {tab === 'createdAt' && <CheckIcon />}
                     </button>
                     <button
                         className={tab === 'updatedAt' ? styles.modalBlockContainerActive : ''}
-                        onClick={() => setTab('updatedAt')}
+                        onClick={() => {handleClick('updatedAt')}}
                     >
                         По дате изменения
                         {tab === 'updatedAt' && <CheckIcon />}
