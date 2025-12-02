@@ -4,6 +4,9 @@
 .notes {
     @extend %block;
     gap: 24px;
+    @media screen and (max-width: 700px) {
+        margin: 24px auto;
+    }
 
     &Item {
         background-color: white;

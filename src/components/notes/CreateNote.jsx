@@ -34,6 +34,11 @@ function CreateNote() {
         stopRecognition()
     }
 
+    // ручной ввод
+    function handleInput(e) {
+        setText(e.currentTarget.innerHTML)
+    }
+
     // голосовой ввод
     const [prev, setPrev] = useState('')
     const editorRef = useRef(null)
@@ -41,17 +46,24 @@ function CreateNote() {
 
     useEffect(() => {
         if (!listening) {
-          setPrev('') 
-          return
+            setPrev('')
+            return
         }
-      
+    
         if (transcript.length <= prev.length) return
-      
+    
         const newPart = transcript.slice(prev.length)
-
-        setText(prev => prev + newPart)
         setPrev(transcript)
-      }, [transcript, listening])
+    
+        if (editorRef.current) {
+            // вставляем в конец текущего контента
+            editorRef.current.innerHTML += newPart
+            setText(editorRef.current.innerHTML)
+            
+            // скроллим вниз
+            editorRef.current.scrollTop = editorRef.current.scrollHeight
+        }
+    }, [transcript, listening])
 
     function startRecognition() {
         resetTranscript()
@@ -61,20 +73,21 @@ function CreateNote() {
             language: 'ru-RU',
         })
     }
-
+    
     function stopRecognition() {
         SpeechRecognition.stopListening()
         setPrev('')
 
-        setText(prev => {
-            if (!prev) return prev
-            if (/[A-Za-zА-Яа-я0-9Ёё]/.test(prev.slice(-1))) return prev + ' '  
-            return prev
-        })
-    }
+        if (editorRef.current) {
+            let html = editorRef.current.innerHTML
 
-    function handleInput(e) {
-        setText(e.currentTarget.innerHTML)
+            if (html && !html.endsWith(' ') && !html.endsWith('<br>')) {
+                html += ' '
+                editorRef.current.innerHTML = html
+            }
+    
+            setText(html)
+        }
     }
 
     return (
@@ -132,7 +145,6 @@ function CreateNote() {
                     data-placeholder="Текст"
                     onInput={handleInput}
                     suppressContentEditableWarning={true}
-                    dangerouslySetInnerHTML={{ __html: text }}
                 ></div>
             </div>
         </div>

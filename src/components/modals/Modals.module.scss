@@ -8,8 +8,9 @@
     height: 100%;
     width: 100%;
     background-color: $color-background-modal;
-    position: absolute;
+    position: fixed;
     top: 0;
+    z-index: 2;
 
     &Block {
         background-color: white;

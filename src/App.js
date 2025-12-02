@@ -42,6 +42,8 @@ function App() {
     load()
   }, [])
 
+  ///////////////////////////////////////////////////////
+
   // модальное окно - сортировка
   const [sortOpen, setSortOpen] = useState(false)
 
@@ -71,9 +73,6 @@ function App() {
     note.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
     note.content.toLowerCase().includes(searchQuery.toLowerCase())
   )
-
-  console.log(filteredNotes)
-
 
   // модальное окно - настройки
   const [settingsOpen, setSettingsOpen] = useState(false)
@@ -139,7 +138,21 @@ function App() {
     const id = await addNote(note)
     const saved = await getNoteById(id)
   
-    setNotes(prev => [...prev, saved])
+    setNotes(prev => {
+      const newNotes = [...prev, saved]
+
+      const savedTab = localStorage.getItem('sortTab') || 'createdAt'
+
+      if (savedTab === 'title') {
+        newNotes.sort((a, b) => a.title.localeCompare(b.title))
+      } else if (savedTab === 'createdAt') {
+        newNotes.sort((a, b) => b.createdAt - a.createdAt)
+      } else if (savedTab === 'updatedAt') {
+        newNotes.sort((a, b) => b.updatedAt - a.updatedAt)
+      }
+
+      return newNotes
+    })
   
     return id
   }
@@ -150,7 +163,24 @@ function App() {
   const toggleAddDownloadModal = () => setAddPassword(!addPassword)
   const closeAddDownloadModal = () => setAddPassword(false)
 
+  ///////////////////////////////////////////////////////
 
+  // убираем прокрутку страницы при открытии модального окна
+  useEffect(() => {
+    const modals = sortOpen || settingsOpen || downloadOpen || deleteOpen || passwordOpen || saveOpen || addPassword
+  
+    if (modals) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = 'auto'
+    }
+  
+    return () => {
+      document.body.style.overflow = 'auto'
+    }
+  }, [sortOpen, settingsOpen, downloadOpen, deleteOpen, passwordOpen, saveOpen, addPassword])
+
+  ///////////////////////////////////////////////////////
 
   const contextValue = {
     searchQuery,

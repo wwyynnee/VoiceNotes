@@ -6,6 +6,22 @@
   padding: 0;
   margin: 0;
 }
+
+::-webkit-scrollbar {
+  width: 12px;
+}
+::-webkit-scrollbar-track {
+  background: $color-background;
+}
+::-webkit-scrollbar-thumb {
+  background-color: $color-button;
+  border-radius: 6px;
+  border: 3px solid #f0f0f0;
+  &:hover {
+    background-color: $color-text;
+  }
+}
+
 body {
   font-family: 'Raleway', sans-serif;
   background-color: $color-background;
