@@ -37,9 +37,9 @@ function Notes() {
 
             {filteredNotes.length === 0 && (
                 <div className={styles.notesEmpty}>
-                    <p>{strings.empty}</p>
-                    <p>{strings.empty_span}</p>
-                    <NavLink to="/create">{strings.empty_button}</NavLink>
+                    <p>{strings.notesEmpty}</p>
+                    <p>{strings.notesEmptySpan}</p>
+                    <NavLink to="/create">{strings.notesEmptyButton}</NavLink>
                 </div>
             )}
 

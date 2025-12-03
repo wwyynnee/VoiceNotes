@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router'
 import { getNotes, getNoteById, addNote, deleteNote } from './utils/db';
 import NotesContext from './context/NotesContext'
+import strings from './utils/localization'
 
 import Nav from './components/UI/Nav'
 
@@ -40,6 +41,16 @@ function App() {
     }
     
     load()
+  }, [])
+
+  ///////////////////////////////////////////////////////
+
+  useEffect(() => {
+    const savedLang = localStorage.getItem("lang") || "ru"
+    strings.setLanguage(savedLang)
+
+    // чтобы все компоненты могли обновиться при первой загрузке
+    window.dispatchEvent(new Event('language-change'))
   }, [])
 
   ///////////////////////////////////////////////////////
