@@ -1,12 +1,18 @@
 import { useContext, useState } from 'react'
 import NotesContext from '../../context/NotesContext'
+import strings from '../../utils/localization'
 import styles from './Modals.module.scss'
 
 function Settings() {
     const { onCloseSettings } = useContext(NotesContext)
 
     const [tabTheme, setTabTheme] = useState('light')
-    const [tabLang, setTabLang] = useState('russian')
+    const [tabLang, setTabLang] = useState('ru')
+
+    function changeLang(lang) {
+        strings.setLanguage(lang)
+        window.dispatchEvent(new Event('language-change'))
+    }
 
     function CheckIcon() {
         return (
@@ -45,18 +51,18 @@ function Settings() {
                 <div className={`${styles.modalBlockContainer} ${styles.modalBlockDefault}`}>
                     <b>Язык приложения</b>
                     <button
-                        className={tabLang === 'russian' ? styles.modalBlockContainerActive : ''}
-                        onClick={() => setTabLang('russian')}
+                        className={tabLang === 'ru' ? styles.modalBlockContainerActive : ''}
+                        onClick={() => setTabLang('ru')}
                     >
                         Русский
-                        {tabLang === 'russian' && <CheckIcon />}
+                        {tabLang === 'ru' && <CheckIcon />}
                     </button>
                     <button
-                        className={tabLang === 'english' ? styles.modalBlockContainerActive : ''}
-                        onClick={() => setTabLang('english')}
+                        className={tabLang === 'en' ? styles.modalBlockContainerActive : ''}
+                        onClick={() => {setTabLang('en'); changeLang('en')}}
                     >
                         English
-                        {tabLang === 'english' && <CheckIcon />}
+                        {tabLang === 'en' && <CheckIcon />}
                     </button>
                 </div>
             </div>

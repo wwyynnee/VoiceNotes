@@ -1,6 +1,7 @@
 import { useContext } from 'react'
 import { NavLink, useNavigate } from 'react-router'
 import NotesContext from '../../context/NotesContext'
+import strings from '../../utils/localization'
 import styles from './List.module.scss'
 
 function Notes() {
@@ -36,9 +37,9 @@ function Notes() {
 
             {filteredNotes.length === 0 && (
                 <div className={styles.notesEmpty}>
-                    <p>Пока пусто</p>
-                    <p>Запиши свою первую заметку!</p>
-                    <NavLink to="/create">Создать заметку</NavLink>
+                    <p>{strings.empty}</p>
+                    <p>{strings.empty_span}</p>
+                    <NavLink to="/create">{strings.empty_button}</NavLink>
                 </div>
             )}
 
