@@ -99,7 +99,7 @@
             color: $color-button;
         }
         
-        &:hover {
+        &:not(.modalPasswordContainerOpacity):hover {
             background-color: $color-text !important;
             &:last-child {
                 border: solid 1px $color-text !important;

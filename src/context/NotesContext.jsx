@@ -19,6 +19,8 @@ const NotesContext = createContext({
     onCloseDelete: () => {},
     onDelete: () => {},
 
+    activeNote: {},
+    passwordOpen: Boolean,
     onOpenPassword: () => {},
     onClosePassword: () => {},
 
@@ -28,6 +30,11 @@ const NotesContext = createContext({
 
     onOpenAddPassword: () => {},
     onCloseAddPassword: () => {},
+    password: String,
+    setPassword: () => {},
+
+    onOpenRemovePassword: () => {},
+    onCloseRemovePassword: () => {},
     
     saveTitle: String,
     isSortActive: Boolean,
