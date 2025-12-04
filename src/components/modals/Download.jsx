@@ -1,9 +1,14 @@
 import { useContext } from 'react'
 import NotesContext from '../../context/NotesContext'
+import { downloadTxt, downloadDocx, downloadJson } from '../../utils/download' 
 import styles from './Modals.module.scss'
 
 function Download() {
-    const { onCloseDownload, noteTitleDownload } = useContext(NotesContext)
+    const { onCloseDownload, noteToDownload } = useContext(NotesContext)
+
+    if(!noteToDownload) return null
+
+    const { title, content } = noteToDownload
 
     return (
         <div className={styles.modal} onClick={onCloseDownload}>
@@ -15,9 +20,10 @@ function Download() {
                     </svg>
                 </div>
                 <div className={`${styles.modalBlockContainer} ${styles.modalDownloadContainer}`}>
-                    <span>Заметку «{noteTitleDownload}»</span>
-                    <button>Текстовой файл</button>
-                    <button>Аудиофайл</button>
+                    <span>Заметку «{title}»</span>
+                    <button onClick={() => downloadTxt(title, content)}>Текстовой файл</button>
+                    <button onClick={() => downloadDocx(title, content)}>Файл Word</button>
+                    <button onClick={() => downloadJson(noteToDownload)}>Экспорт JSON</button>
                 </div>
             </div>
         </div>

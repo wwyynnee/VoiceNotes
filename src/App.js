@@ -96,13 +96,11 @@ function App() {
 
   // модальное окно - скачать заметку
   const [downloadOpen, setDownloadOpen] = useState(false)
-  const [downloadNoteId, setDownloadNoteId] = useState(null)
-  const [downloadNoteTitle, setDownloadNoteTitle] = useState('')
+  const [noteToDownload, setNoteToDownload] = useState(null)
 
   function openDownloadModal(note) {
     setDownloadOpen(true)
-    setDownloadNoteId(note.id)
-    setDownloadNoteTitle(note.title)
+    setNoteToDownload(note)
   }
 
   const closeDownloadModal = () => setDownloadOpen(false)
@@ -263,6 +261,7 @@ function App() {
 
     onOpenDownload: openDownloadModal,
     onCloseDownload: closeDownloadModal,
+    noteToDownload,
 
     onOpenDelete: openDeleteModal,
     onCloseDelete: closeDeleteModal,
@@ -291,10 +290,9 @@ function App() {
     isSaveActive: saveOpen,
     noteId: deleteNoteId,
     noteTitle: deleteNoteTitle,
-    noteIdDownload: downloadNoteId,
-    noteTitleDownload: downloadNoteTitle,
     notes: notes,
-    onUpdate
+    onUpdate,
+    setNotes
   }
 
   return (

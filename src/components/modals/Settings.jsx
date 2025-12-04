@@ -4,7 +4,7 @@ import strings from '../../utils/localization'
 import styles from './Modals.module.scss'
 
 function Settings() {
-    const { onCloseSettings } = useContext(NotesContext)
+    const { setNotes, onCloseSettings, onOpenSave } = useContext(NotesContext)
 
     const [tabTheme, setTabTheme] = useState('light')
     const [tabLang, setTabLang] = useState(localStorage.getItem('lang') || 'ru')
@@ -25,6 +25,27 @@ function Settings() {
                 <path d="M10.2986 12.1905L6.55723 15.942L0 9.36693L1.6988 7.49782C2.71676 6.37767 4.45522 6.33128 5.52605 7.40502L10.2986 12.1905ZM30 2.74881L28.3177 0.876381C27.3037 -0.251715 25.5547 -0.296786 24.4839 0.776298L7.95858 17.3465L9.83056 19.2235C10.8631 20.2588 12.5374 20.2588 13.5699 19.2235L30 2.74881Z" fill="#A19EFF"/>
             </svg>
         )
+    }
+
+    function handleFile(e) {
+        const file = e.target.files[0]
+        if (!file) return
+
+        const reader = new FileReader()
+        reader.onload = (event) => {
+            try {
+                const note = JSON.parse(event.target.result)
+
+                setNotes(prev => [...prev, note])
+                onCloseSettings()
+                onOpenSave(note.title || `Заметка №${note.id}`)
+            } catch (err) {
+                alert('Невозможно импортировать файл. Он недействителен')
+                console.error(err)
+            }
+        }
+
+        reader.readAsText(file)
     }
 
     return (
@@ -76,6 +97,10 @@ function Settings() {
                         {tabLang === 'en' && <CheckIcon />}
                     </button>
                 </div>
+                <label className={styles.importLabel}>
+                    Импортировать JSON
+                    <input type="file" accept=".json" onChange={handleFile} style={{ display: 'none' }} />
+                </label>
             </div>
         </div>
     )
