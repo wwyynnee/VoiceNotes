@@ -18,7 +18,7 @@ function EditNote() {
     // очищаем пароль, если заметка не сохранена
     useEffect(() => {
         return () => setPassword('')
-    }, [])
+    }, [setPassword])
 
     // отображаем контент заметки
     useEffect(() => {
@@ -27,7 +27,7 @@ function EditNote() {
             setText(note.content || '')
             setPassword(note.password ? atob(note.password) : '')
         }
-    }, [note]) 
+    }, [note, setPassword]) 
 
     // сохранение заметки
     async function saveNote() {
@@ -86,7 +86,7 @@ function EditNote() {
             // скроллим вниз
             editorRef.current.scrollTop = editorRef.current.scrollHeight
         }
-    }, [transcript, listening])
+    }, [transcript, listening, prev])
 
     function startRecognition() {
         resetTranscript()

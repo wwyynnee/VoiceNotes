@@ -13,7 +13,7 @@ function CreateNote() {
     // очищаем пароль, если заметка не сохранена
     useEffect(() => {
         return () => setPassword('')
-    }, [])
+    }, [setPassword])
 
     // сохранение заметки
     async function saveNote() {
@@ -70,7 +70,7 @@ function CreateNote() {
             // скроллим вниз
             editorRef.current.scrollTop = editorRef.current.scrollHeight
         }
-    }, [transcript, listening])
+    }, [transcript, listening, prev])
 
     function startRecognition() {
         resetTranscript()

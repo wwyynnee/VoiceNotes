@@ -4,14 +4,14 @@ import strings from '../../utils/localization'
 import styles from './Modals.module.scss'
 
 function Settings() {
-    const { setNotes, onCloseSettings, onOpenSave } = useContext(NotesContext)
+    const { onSave, getNoteById, onCloseSettings, onOpenSave } = useContext(NotesContext)
 
     const [tabTheme, setTabTheme] = useState('light')
     const [tabLang, setTabLang] = useState(localStorage.getItem('lang') || 'ru')
 
     useEffect(() => {
         strings.setLanguage(tabLang)
-    }, [])
+    }, [tabLang])
 
     function changeLang(lang) {
         strings.setLanguage(lang)
@@ -27,20 +27,23 @@ function Settings() {
         )
     }
 
-    function handleFile(e) {
+    async function handleFile(e) {
         const file = e.target.files[0]
         if (!file) return
 
         const reader = new FileReader()
-        reader.onload = (event) => {
+
+        reader.onload = async (event) => {
             try {
                 const note = JSON.parse(event.target.result)
 
-                setNotes(prev => [...prev, note])
+                const id = await onSave(note)
+                const saved = await getNoteById(id)
+
                 onCloseSettings()
-                onOpenSave(note.title || `Заметка №${note.id}`)
+                onOpenSave(saved.title)
             } catch (err) {
-                alert('Невозможно импортировать файл. Он недействителен')
+                alert(`${strings.settingsImportError}`)
                 console.error(err)
             }
         }
@@ -97,10 +100,13 @@ function Settings() {
                         {tabLang === 'en' && <CheckIcon />}
                     </button>
                 </div>
-                <label className={styles.importLabel}>
-                    Импортировать JSON
-                    <input type="file" accept=".json" onChange={handleFile} style={{ display: 'none' }} />
-                </label>
+                <div className={`${styles.modalBlockContainer} ${styles.modalBlockDefault}`}>
+                    <b>{strings.settingsImport}</b>
+                    <label className={styles.modalBlockLabel}>
+                        JSON
+                        <input type="file" accept=".json" onChange={handleFile} style={{ display: 'none' }} />
+                    </label>
+                </div>
             </div>
         </div>
     )

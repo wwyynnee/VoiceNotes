@@ -2,6 +2,8 @@ import LocalizedStrings from 'react-localization'
 
 let strings = new LocalizedStrings({
     ru: {
+        note: 'Заметка',
+
         // Все заметки
         notesEmpty: 'Пока пусто',
         notesEmptySpan: 'Запиши свою первую заметку!',
@@ -13,8 +15,12 @@ let strings = new LocalizedStrings({
         settingsAppLanguage: 'Язык приложения',
         settingsLightTheme: 'Светлая тема',
         settingsDarkTheme: 'Темная тема',
+        settingsImport: 'Импортировать заметку',
+        settingsImportError: 'Невозможно импортировать файл. Он недействителен',
     },
     en: {
+        note: 'Note',
+
         // Все заметки
         notesEmpty: 'Not found',
         notesEmptySpan: 'Write down your first note!',
@@ -26,6 +32,8 @@ let strings = new LocalizedStrings({
         settingsAppLanguage: 'Application language',
         settingsLightTheme: 'Light theme',
         settingsDarkTheme: 'Dark theme',
+        settingsImport: 'Import a note',
+        settingsImportError: 'The file cannot be imported. It is invalid',
     },
 })
 

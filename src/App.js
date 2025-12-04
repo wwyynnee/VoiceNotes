@@ -54,7 +54,7 @@ function App() {
 
     // чтобы все компоненты могли обновиться при первой загрузке
     window.dispatchEvent(new Event('language-change'))
-  }, [])
+  }, [savedLang])
 
   ///////////////////////////////////////////////////////
 
@@ -173,7 +173,7 @@ function App() {
 
     const noteToSave = {
       ...note,
-      password: encodedPassword,
+      password: note.password ?? encodedPassword,
       createdAt: note.createdAt ?? Date.now()
     }
 
@@ -254,18 +254,24 @@ function App() {
     onOpenSort: openSortModal,
     onCloseSort: closeSortModal,
     onSortNotes: sortNotes,
+    isSortActive: sortOpen,
 
     onOpenSettings: openSettingsModal,
     onCloseSettings: closeSettingsModal,
     savedLang,
+    isSettingsActive: settingsOpen,
 
     onOpenDownload: openDownloadModal,
     onCloseDownload: closeDownloadModal,
     noteToDownload,
+    isDownloadActive: downloadOpen,
 
     onOpenDelete: openDeleteModal,
     onCloseDelete: closeDeleteModal,
     onDelete: handleDelete,
+    isDeleteActive: deleteOpen,
+    noteId: deleteNoteId,
+    noteTitle: deleteNoteTitle,
 
     activeNote,
     passwordOpen,
@@ -275,24 +281,18 @@ function App() {
     onOpenSave: openSaveModal,
     onCloseSave: closeSaveModal,
     onSave: handleSave,
+    isSaveActive: saveOpen,
 
     onOpenAddPassword: openAddPasswordModal,
     onCloseAddPassword: closeAddPasswordModal,
     password,
     setPassword,
-    
-    saveTitle: saveTitle,
-    isSortActive: sortOpen,
-    isSettingsActive: settingsOpen,
-    isDownloadActive: downloadOpen,
-    isDeleteActive: deleteOpen,
     isPasswordActive: addPassword,
-    isSaveActive: saveOpen,
-    noteId: deleteNoteId,
-    noteTitle: deleteNoteTitle,
-    notes: notes,
+    
+    saveTitle,
+    notes,
     onUpdate,
-    setNotes
+    getNoteById
   }
 
   return (

@@ -94,6 +94,13 @@
                 @include buttonModal;
             }
         }
+
+        &Label {
+            @include button(modal, modal);
+            padding: 14.5px 32px;
+            display: flex;
+            cursor: pointer;
+        }
     }
 
     &Download {

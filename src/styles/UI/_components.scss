@@ -76,9 +76,6 @@
         display: flex;
         justify-content: flex-start !important;
         padding: 14.5px 32px !important;
-        @media screen and (max-width: 700px) {
-            @include button(modal, modal);
-        }
         
         &:hover {
             background-color: $color-text;
