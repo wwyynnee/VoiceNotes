@@ -206,6 +206,31 @@ function App() {
 
   ///////////////////////////////////////////////////////
 
+  // Обновление заметки
+  async function onUpdate(id, data) {
+    const updatedNote = await updateNote(id, data)
+
+    setNotes(prev => {
+      const newNotes = prev.map(n => n.id === id ? updatedNote : n)
+
+      const savedTab = localStorage.getItem('sortTab') || 'createdAt'
+
+      if (savedTab === 'title') {
+          newNotes.sort((a, b) => a.title.localeCompare(b.title))
+      } else if (savedTab === 'createdAt') {
+          newNotes.sort((a, b) => b.createdAt - a.createdAt)
+      } else if (savedTab === 'updatedAt') {
+          newNotes.sort((a, b) => b.updatedAt - a.updatedAt)
+      }
+
+      return newNotes
+    })
+
+    return updatedNote
+  }
+
+  ///////////////////////////////////////////////////////
+
   // убираем прокрутку страницы при открытии модального окна
   useEffect(() => {
     const modals = sortOpen || settingsOpen || downloadOpen || deleteOpen || passwordOpen || saveOpen || addPassword
@@ -220,19 +245,6 @@ function App() {
       document.body.style.overflow = 'auto'
     }
   }, [sortOpen, settingsOpen, downloadOpen, deleteOpen, passwordOpen, saveOpen, addPassword])
-
-  ///////////////////////////////////////////////////////
-
-  // Обновление заметки
-  async function onUpdate(id, data) {
-    const updatedNote = await updateNote(id, data)
-
-    setNotes(prev =>
-      prev.map(n => n.id === id ? updatedNote : n)
-    )
-
-    return updatedNote
-  }
 
   ///////////////////////////////////////////////////////
 

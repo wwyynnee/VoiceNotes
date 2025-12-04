@@ -22,7 +22,8 @@ function CreateNote() {
         const note = ({
             title: title.trim(),
             content: text,
-            createdAt: Date.now()
+            createdAt: Date.now(),
+            updatedAt: Date.now(),
         })
 
         const id = await onSave(note)
