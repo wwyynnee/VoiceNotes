@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router'
-import { getNotes, getNoteById, addNote, deleteNote } from './utils/db';
+import { getNotes, getNoteById, addNote, deleteNote, updateNote } from './utils/db';
 import NotesContext from './context/NotesContext'
 import strings from './utils/localization'
 
@@ -10,6 +10,7 @@ import Nav from './components/UI/Nav'
 import Main from './components/pages/Main'
 import Note from './components/pages/Note'
 import Create from './components/pages/Create'
+import Edit from './components/pages/Edit'
 
 // Модальные окна
 import Sort from './components/modals/Sort'
@@ -19,7 +20,6 @@ import Delete from './components/modals/Detete'
 import Password from './components/modals/Password'
 import Save from './components/modals/Save'
 import AddPassword from './components/modals/AddPassword'
-import RemovePassword from './components/modals/RemovePassword'
 
 import './App.scss'
 
@@ -46,8 +46,10 @@ function App() {
 
   ///////////////////////////////////////////////////////
 
+  // Локализация приложения
+  const savedLang = localStorage.getItem("lang") || "ru"
+
   useEffect(() => {
-    const savedLang = localStorage.getItem("lang") || "ru"
     strings.setLanguage(savedLang)
 
     // чтобы все компоненты могли обновиться при первой загрузке
@@ -149,12 +151,6 @@ function App() {
   const openAddPasswordModal = () => setAddPassword(true)
   const closeAddPasswordModal = () => setAddPassword(false)
 
-  // модальное окно - сброс пароля
-  const [removePassword, setRemovePassword] = useState(false)
-
-  const openRemovePasswordModal = () => setRemovePassword(true)
-  const closeRemovePasswordModal = () => setRemovePassword(false)
-
   // модальное окно - сохранение заметки
   const [saveOpen, setSaveOpen] = useState(false)
   const [saveTitle, setSaveTitle] = useState('')
@@ -227,6 +223,19 @@ function App() {
 
   ///////////////////////////////////////////////////////
 
+  // Обновление заметки
+  async function onUpdate(id, data) {
+    const updatedNote = await updateNote(id, data)
+
+    setNotes(prev =>
+      prev.map(n => n.id === id ? updatedNote : n)
+    )
+
+    return updatedNote
+  }
+
+  ///////////////////////////////////////////////////////
+
   const contextValue = {
     searchQuery,
     setSearchQuery,
@@ -238,6 +247,7 @@ function App() {
 
     onOpenSettings: openSettingsModal,
     onCloseSettings: closeSettingsModal,
+    savedLang,
 
     onOpenDownload: openDownloadModal,
     onCloseDownload: closeDownloadModal,
@@ -259,9 +269,6 @@ function App() {
     onCloseAddPassword: closeAddPasswordModal,
     password,
     setPassword,
-
-    onOpenRemovePassword: openRemovePasswordModal,
-    onCloseRemovePassword: closeRemovePasswordModal,
     
     saveTitle: saveTitle,
     isSortActive: sortOpen,
@@ -275,6 +282,7 @@ function App() {
     noteIdDownload: downloadNoteId,
     noteTitleDownload: downloadNoteTitle,
     notes: notes,
+    onUpdate
   }
 
   return (
@@ -287,6 +295,7 @@ function App() {
               <Route index element={<Main />} />
               <Route path="/note/:id" element={<Note />} />
               <Route path="/create" element={<Create />} />
+              <Route path="/edit/:id" element={<Edit />} />
             </Routes>
 
             {sortOpen && <Sort />}
@@ -296,7 +305,6 @@ function App() {
             {passwordOpen && <Password />}
             {saveOpen && <Save />}
             {addPassword && <AddPassword />}
-            {removePassword && <RemovePassword />}
           </div>
       </BrowserRouter>
     </NotesContext.Provider>

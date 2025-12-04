@@ -1,34 +1,51 @@
 import { useEffect, useRef, useState, useContext } from 'react'
-import { NavLink } from 'react-router'
+import { NavLink, useParams } from 'react-router'
 import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition'
 import NotesContext from '../../context/NotesContext'
 import styles from './CreateNote.module.scss'
 
-function CreateNote() {
-    const { onSave, onOpenSave, onOpenAddPassword, password, setPassword, isPasswordActive, isSaveActive, savedLang } = useContext(NotesContext)
+function EditNote() {
+    const { id } = useParams()
+    const noteId = Number(id)
 
-    const [title, setTitle] = useState('')
-    const [text, setText] = useState('')
+    const { notes, onUpdate, onOpenSave, onOpenAddPassword, password, setPassword, isPasswordActive, isSaveActive, savedLang } = useContext(NotesContext)
+
+    const note = notes.find(n => n.id === noteId)
+
+    const [title, setTitle] = useState(note?.title || '')
+    const [text, setText] = useState(note?.content || '')
 
     // очищаем пароль, если заметка не сохранена
     useEffect(() => {
         return () => setPassword('')
     }, [])
 
+    // отображаем контент заметки
+    useEffect(() => {
+        if (editorRef.current && note) {
+            editorRef.current.innerHTML = note.content || ''
+            setText(note.content || '')
+            setPassword(note.password ? atob(note.password) : '')
+        }
+    }, [note]) 
+
     // сохранение заметки
     async function saveNote() {
         if (!text.trim()) return
+
+        const encoded = password ? btoa(password) : undefined
+        const finalTitle = title.trim() || `Заметка №${noteId}`
     
-        const note = ({
-            title: title.trim(),
+        const updated = ({
+            ...note,
+            password: encoded,
+            title: finalTitle,
             content: text,
-            createdAt: Date.now()
+            updatedAt: Date.now()
         })
 
-        const id = await onSave(note)
-
-        const finalTitle = title.trim() || `Заметка №${id}`
-    
+        await onUpdate(noteId, updated)
+        
         onOpenSave(finalTitle)
         stopRecognition()
     }
@@ -153,7 +170,7 @@ function CreateNote() {
                 </div>
             </div>
             <div className={styles.createContainer}>
-                <input name="nameNote" placeholder="Название заметки" onChange={(e) => setTitle(e.target.value)} />              
+                <input value={title} name="nameNote" placeholder="Название заметки" onChange={(e) => setTitle(e.target.value)} />              
                 
                 {password.length !== 0 && <svg width="17" height="20" viewBox="0 0 17 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M1.77109 9.02393C1.51474 9.11714 1.04867 9.49 0.722417 9.83956C0.139823 10.4455 0.139823 10.5154 0.0699113 15.2227L0 20L7.57372 19.9301L15.1708 19.8602L15.9165 19.0912L16.6855 18.3454L16.7554 13.5682L16.8253 8.79089L9.53124 8.81419C5.52299 8.81419 2.02743 8.90741 1.77109 9.02393ZM5.15013 13.4516C5.40647 13.708 5.61621 14.1275 5.61621 14.3838C5.61621 14.9897 4.82388 15.782 4.21798 15.782C3.61208 15.782 2.81976 14.9897 2.81976 14.3838C2.81976 14.1275 3.02949 13.708 3.28583 13.4516C3.54217 13.1953 3.96164 12.9856 4.21798 12.9856C4.47432 12.9856 4.89379 13.1953 5.15013 13.4516ZM9.34481 13.4516C9.60115 13.708 9.81088 14.1275 9.81088 14.3838C9.81088 14.9897 9.01856 15.782 8.41266 15.782C7.80676 15.782 7.01443 14.9897 7.01443 14.3838C7.01443 14.1275 7.22417 13.708 7.48051 13.4516C7.73685 13.1953 8.15632 12.9856 8.41266 12.9856C8.669 12.9856 9.08847 13.1953 9.34481 13.4516ZM13.5395 13.4516C13.7958 13.708 14.0056 14.1275 14.0056 14.3838C14.0056 14.9897 13.2132 15.782 12.6073 15.782C12.351 15.782 11.9315 15.5723 11.6752 15.3159C11.4188 15.0596 11.2091 14.6401 11.2091 14.3838C11.2091 14.1275 11.4188 13.708 11.6752 13.4516C11.9315 13.1953 12.351 12.9856 12.6073 12.9856C12.8637 12.9856 13.2831 13.1953 13.5395 13.4516Z" fill="#222222"/>
@@ -173,4 +190,4 @@ function CreateNote() {
     )
 }
 
-export default CreateNote
+export default EditNote
