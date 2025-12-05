@@ -1,9 +1,10 @@
 import { useEffect, useRef, useState, useContext } from 'react'
-import { NavLink, useParams } from 'react-router'
+import { useParams } from 'react-router'
 import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition'
 import NotesContext from '../../context/NotesContext'
 import { LocalizationContext } from '../../context/LocalizationContext'
 import strings from '../../utils/localization'
+import BackButton from './BackButton'
 import styles from './CreateNote.module.scss'
 
 function EditNote() {
@@ -121,14 +122,7 @@ function EditNote() {
         <div className={styles.create} data-lang={language}>
             <div className={styles.createButtons}>
                 <div className={styles.createButtonsItems}>
-                    <NavLink to="/">
-                        <button>
-                            <svg width="28" height="30" viewBox="0 0 28 30" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M5.17437 3.80345C2.32511 5.89336 0 7.62039 0 7.64055C0 7.68087 10.0934 15.1132 10.3353 15.2543C10.4428 15.3148 10.4495 14.9385 10.4495 7.65399C10.4495 3.44057 10.4294 -0.00678137 10.4025 -6.13949e-05C10.3689 -6.13949e-05 8.02364 1.70681 5.17437 3.80345Z" fill="white"/>
-                                <path d="M12.5461 7.80186L12.5663 11.303L13.3055 11.4307C16.1279 11.9011 18.3656 12.9494 19.965 14.542C21.6114 16.175 22.4111 18.1238 22.4111 20.4892C22.4111 22.0684 22.0549 23.4258 21.188 25.1797L20.6975 26.1608V26.9C20.6975 27.572 20.7176 27.6863 20.8856 28.0424C20.9864 28.2642 21.1746 28.5666 21.3023 28.7212C21.5509 29.0303 22.989 30.0517 23.0898 29.998C23.1167 29.9778 23.4056 29.6149 23.7147 29.1983C25.4686 26.8732 26.6514 24.0373 27.0882 21.1276C27.236 20.1465 27.2562 17.7138 27.1218 16.6924C26.5774 12.4319 24.6219 9.20634 21.2687 7.02907C19.6492 5.98075 17.4248 5.11387 15.1804 4.67035C14.3404 4.50235 12.9359 4.29403 12.6671 4.29403C12.5327 4.29403 12.5327 4.34779 12.5461 7.80186Z" fill="white"/>
-                            </svg>
-                        </button>
-                    </NavLink>
+                    <BackButton />
                 </div>
                 <div className={styles.createButtonsItems}>
                     <p>{strings.createMicrophone}: <span>{listening ? `${strings.createOn}` : `${strings.createOff}`}</span></p>
