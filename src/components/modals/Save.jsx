@@ -1,6 +1,7 @@
 import { useContext } from 'react'
 import { useNavigate } from 'react-router'
 import NotesContext from '../../context/NotesContext'
+import strings from '../../utils/localization'
 import styles from './Modals.module.scss'
 
 function Save() {
@@ -16,11 +17,11 @@ function Save() {
         <div className={styles.modal}>
             <div className={`${styles.modalBlock} ${styles.modalDefault}`} onClick={(e) => e.stopPropagation()}>
                 <div className={`${styles.modalBlockContainer} ${styles.modalDefaultContainer}`}>
-                    <p>Заметка сохранена!</p>
+                    <p>{strings.saveTitle}!</p>
                     <span>«{saveTitle}»</span>
                 </div>
                 <div className={`${styles.modalBlockContainer} ${styles.modalDefaultContainer} ${styles.modalDefaultContainerFull}`}>
-                    <button onClick={saveNote}>Все заметки</button>
+                    <button onClick={saveNote}>{strings.saveTitleButton}</button>
                 </div>
             </div>
         </div>

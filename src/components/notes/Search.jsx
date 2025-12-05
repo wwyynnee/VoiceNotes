@@ -1,5 +1,6 @@
 import { useContext } from 'react'
 import NotesContext from '../../context/NotesContext'
+import strings from '../../utils/localization'
 import styles from './Search.module.scss'
 
 function Search({ type }) {
@@ -14,7 +15,7 @@ function Search({ type }) {
                     <rect y="14" width="16" height="2" fill="#222222"/>
                 </svg>
             </button>
-            <input type="text" name="search" placeholder='Найти заметку' value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} />
+            <input type="text" name="search" placeholder={strings.search} value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} />
         </div>
     )
 }

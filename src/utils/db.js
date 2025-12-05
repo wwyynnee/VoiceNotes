@@ -1,3 +1,5 @@
+import strings from './localization'
+
 export function openDB() {
     return new Promise((resolve, reject) => {
         const request = indexedDB.open('notes-db', 1)
@@ -29,7 +31,7 @@ export async function addNote(note) {
 
             // Если заголовок не задан
             if (!note.title || note.title.trim() === '') {
-                const updated = { ...note, id: newId, title: `Заметка №${newId}` }
+                const updated = { ...note, id: newId, title: `${strings.note} №${newId}` }
 
                 store.put(updated)
             }
@@ -97,7 +99,7 @@ export async function updateNote(id, updatedFields) {
         getReq.onsuccess = () => {
             const existing = getReq.result
             if (!existing) {
-                reject(new Error('Заметка не найдена'))
+                reject(new Error(`${strings.notfound}`))
                 return
             }
 

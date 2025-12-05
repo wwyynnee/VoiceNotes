@@ -1,6 +1,7 @@
 import { useContext } from 'react'
 import { useNavigate } from 'react-router'
 import NotesContext from '../../context/NotesContext'
+import strings from '../../utils/localization'
 import styles from './Modals.module.scss'
 
 function Delete() {
@@ -16,12 +17,12 @@ function Delete() {
         <div className={styles.modal} onClick={onCloseDelete}>
             <div className={`${styles.modalBlock} ${styles.modalDefault}`} onClick={(e) => e.stopPropagation()}>
                 <div className={`${styles.modalBlockContainer} ${styles.modalDefaultContainer}`}>
-                    <p>Вы уверены, что хотите удалить заметку?</p>
+                    <p>{strings.deteteWarn}?</p>
                     <span>«{noteTitle}»</span>
                 </div>
                 <div className={`${styles.modalBlockContainer} ${styles.modalDefaultContainer}`}>
-                    <button onClick={deleteNote}>Удалить</button>
-                    <button onClick={onCloseDelete}>Отмена</button>
+                    <button onClick={deleteNote}>{strings.delete}</button>
+                    <button onClick={onCloseDelete}>{strings.cancel}</button>
                 </div>
             </div>
         </div>

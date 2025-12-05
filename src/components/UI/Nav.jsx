@@ -1,6 +1,7 @@
 import { useContext } from 'react'
 import { NavLink, useLocation } from 'react-router'
 import NotesContext from '../../context/NotesContext'
+import strings from '../../utils/localization'
 import Search from '../notes/Search'
 import styles from './Nav.module.scss'
 
@@ -23,7 +24,7 @@ function Nav() {
                     <div className={styles.navItemsContainer}>
                         {location.pathname !== '/create' && <NavLink to='/create'>
                             <button>
-                                <span>Создать</span>
+                                <span>{strings.create}</span>
                                 <svg width="20" height="20" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M15.965 0.0649672C15.5941 0.16272 15.3108 0.36337 14.7853 0.888148L14.2959 1.38206L15.4705 2.54994L16.6399 3.72298L17.1551 3.20849C17.8145 2.55509 17.9948 2.22582 18 1.67531C18.0051 0.898438 17.5157 0.265618 16.7584 0.0701121C16.4132 -0.0224957 16.2844 -0.0224957 15.965 0.0649672Z" fill="white"/>
                                     <path d="M11.2927 4.38149C10.1541 5.51851 9.22168 6.47545 9.22168 6.50118C9.22168 6.56806 11.4472 8.79065 11.5142 8.79065C11.5451 8.79065 12.4981 7.85943 13.6418 6.71726L15.7128 4.64902L14.5382 3.47599L13.3688 2.3081L11.2927 4.38149Z" fill="white"/>

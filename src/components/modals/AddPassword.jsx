@@ -1,5 +1,6 @@
 import { useContext, useEffect, useState } from 'react'
 import NotesContext from '../../context/NotesContext'
+import strings from '../../utils/localization'
 import styles from './Modals.module.scss'
 
 function AddPassword() {
@@ -22,18 +23,18 @@ function AddPassword() {
         <div className={styles.modal} onClick={onCloseAddPassword}>
             <div className={`${styles.modalBlock} ${styles.modalDefault}`} onClick={(e) => e.stopPropagation()}>
                 <div className={`${styles.modalBlockContainer} ${styles.modalDefaultContainer} ${styles.modalAddPasswordContainer}`}>
-                    <p>Установка пароля</p>
+                    <p>{strings.passwordAddTitle}</p>
                 </div>
-                <input type="text" placeholder="Введите пароль" value={value} onChange={e => setValue(e.target.value)} />
+                <input type="text" placeholder={strings.passwordTitle} value={value} onChange={e => setValue(e.target.value)} />
                 <div className={`${styles.modalBlockContainer} ${styles.modalDefaultContainer} ${styles.modalPasswordContainer}`}>
                     <button
                         className={!value.trim() ? styles.modalPasswordContainerOpacity : ''}
                         onClick={handleSet}
                         disabled={!value.trim()}
                     >
-                        Установить
+                        {strings.passwordAddButton}
                     </button>
-                    <button onClick={onCloseAddPassword}>Отмена</button>
+                    <button onClick={onCloseAddPassword}>{strings.cancel}</button>
                 </div>
             </div>
         </div>
