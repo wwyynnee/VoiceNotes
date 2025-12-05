@@ -2,11 +2,13 @@ import { useEffect, useRef, useState, useContext } from 'react'
 import { NavLink } from 'react-router'
 import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition'
 import NotesContext from '../../context/NotesContext'
+import { LocalizationContext } from '../../context/LocalizationContext'
 import strings from '../../utils/localization'
 import styles from './CreateNote.module.scss'
 
 function CreateNote() {
     const { onSave, onOpenSave, onOpenAddPassword, password, setPassword, isPasswordActive, isSaveActive, savedLang } = useContext(NotesContext)
+    const { language } = useContext(LocalizationContext)
 
     const [title, setTitle] = useState('')
     const [text, setText] = useState('')

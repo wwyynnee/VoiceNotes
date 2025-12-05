@@ -1,12 +1,15 @@
 import { useContext } from 'react'
 import { NavLink, useNavigate } from 'react-router'
 import NotesContext from '../../context/NotesContext'
+import { LocalizationContext } from '../../context/LocalizationContext'
 import strings from '../../utils/localization'
 import styles from './List.module.scss'
 
 function Notes() {
     const { onOpenDownload, isDownloadActive, noteIdDownload, onOpenDelete, isDeleteActive, noteId, filteredNotes, onOpenPassword } = useContext(NotesContext)
-    const navigate = useNavigate()   
+    const { language } = useContext(LocalizationContext)
+    
+    const navigate = useNavigate()
 
     function formatDate(timestamp) {
         const date = new Date(timestamp)

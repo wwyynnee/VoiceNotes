@@ -2,10 +2,13 @@ import { useEffect, useRef, useState, useContext } from 'react'
 import { NavLink, useParams } from 'react-router'
 import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition'
 import NotesContext from '../../context/NotesContext'
+import { LocalizationContext } from '../../context/LocalizationContext'
 import strings from '../../utils/localization'
 import styles from './CreateNote.module.scss'
 
 function EditNote() {
+    const { language } = useContext(LocalizationContext)
+    
     const { id } = useParams()
     const noteId = Number(id)
 

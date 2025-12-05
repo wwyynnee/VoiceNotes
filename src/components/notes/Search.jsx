@@ -1,10 +1,12 @@
 import { useContext } from 'react'
 import NotesContext from '../../context/NotesContext'
+import { LocalizationContext } from '../../context/LocalizationContext'
 import strings from '../../utils/localization'
 import styles from './Search.module.scss'
 
 function Search({ type }) {
     const { onOpenSort, isSortActive, searchQuery, setSearchQuery } = useContext(NotesContext)
+    const { language } = useContext(LocalizationContext)
 
     return (
         <div className={`${styles.search} ${type === 'mobile' && styles.searchMobile}`}>

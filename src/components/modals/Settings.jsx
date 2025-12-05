@@ -1,10 +1,12 @@
 import { useContext, useState, useEffect } from 'react'
 import NotesContext from '../../context/NotesContext'
+import { LocalizationContext } from '../../context/LocalizationContext'
 import strings from '../../utils/localization'
 import styles from './Modals.module.scss'
 
 function Settings() {
     const { onSave, getNoteById, onCloseSettings, onOpenSave } = useContext(NotesContext)
+    const { changeLanguage } = useContext(LocalizationContext)
 
     const [tabTheme, setTabTheme] = useState('light')
     const [tabLang, setTabLang] = useState(localStorage.getItem('lang') || 'ru')
@@ -14,9 +16,8 @@ function Settings() {
     }, [tabLang])
 
     function changeLang(lang) {
-        strings.setLanguage(lang)
+        changeLanguage(lang)
         localStorage.setItem("lang", lang)
-        window.dispatchEvent(new Event('language-change'))
     }
 
     function CheckIcon() {

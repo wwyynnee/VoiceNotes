@@ -1,12 +1,14 @@
 import { useContext } from 'react'
 import { NavLink, useLocation } from 'react-router'
 import NotesContext from '../../context/NotesContext'
+import { LocalizationContext } from '../../context/LocalizationContext'
 import strings from '../../utils/localization'
 import Search from '../notes/Search'
 import styles from './Nav.module.scss'
 
 function Nav() {
     const { onOpenSettings, isSettingsActive } = useContext(NotesContext)
+    const { language } = useContext(LocalizationContext)
 
     const location = useLocation()
 

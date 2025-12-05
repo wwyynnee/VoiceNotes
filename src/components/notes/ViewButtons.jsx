@@ -1,11 +1,13 @@
 import { useContext } from 'react'
 import { NavLink } from 'react-router'
 import NotesContext from '../../context/NotesContext'
+import { LocalizationContext } from '../../context/LocalizationContext'
 import strings from '../../utils/localization'
 import styles from './View.module.scss'
 
 function ViewButtons({ note }) {
     const { onOpenDownload, isDownloadActive, onOpenDelete, isDeleteActive } = useContext(NotesContext)
+    const { language } = useContext(LocalizationContext)
 
     return (
         <div className={styles.viewButtons}>
