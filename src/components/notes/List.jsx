@@ -6,7 +6,7 @@ import strings from '../../utils/localization'
 import styles from './List.module.scss'
 
 function Notes() {
-    const { onOpenDownload, isDownloadActive, noteIdDownload, onOpenDelete, isDeleteActive, noteId, filteredNotes, onOpenPassword } = useContext(NotesContext)
+    const { onOpenDownload, isDownloadActive, noteToDownload, onOpenDelete, isDeleteActive, noteId, filteredNotes, onOpenPassword } = useContext(NotesContext)
     const { language } = useContext(LocalizationContext)
     
     const navigate = useNavigate()
@@ -92,7 +92,7 @@ function Notes() {
                         <span>{formatDate(note.createdAt)}</span>
                     </div>
                     <div className={styles.notesItemContainer}>
-                        <button onClick={() => handleDownload(note)} className={isDownloadActive && noteIdDownload === note.id ? styles.notesItemContainerActive : ''}>                  
+                        <button onClick={() => handleDownload(note)} className={isDownloadActive && noteToDownload.id === note.id ? styles.notesItemContainerActive : ''}>                  
                             <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M8.625 0.625C8.025 1.225 8 1.325 8 5.125V9H10H12V4.5V0H10.625C9.475 0 9.125 0.0999994 8.625 0.625Z" fill="white"/>
                                 <path d="M4.75 10.65C4.75 10.725 5.925 11.95 7.375 13.325L10 15.875L12.625 13.325C14.075 11.95 15.25 10.725 15.25 10.65C15.25 10.575 12.9 10.5 10 10.5C7.1 10.5 4.75 10.575 4.75 10.65Z" fill="white"/>

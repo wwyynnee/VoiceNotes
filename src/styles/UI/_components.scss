@@ -6,7 +6,7 @@
     width: $width;
     font-size: 18px;
     font-weight: 500;
-    color: white;
+    color: $color-nav-button-hover;
     @if $height == auto {
         padding: 14.5px 32px;
     }
@@ -18,7 +18,7 @@
         width: 100%;
     }
     &:hover {
-        background-color: $color-text;   
+        background-color: $color-button-hover;
     }
     svg {
         height: calc($height - 20px);
@@ -66,7 +66,7 @@
     &:not(.modalBlockContainerActive):not(.modalBlockDownload button) {
         background-color: inherit;
         &:hover {
-            background-color: rgba($color-main, .4);
+            background-color: $color-tab-hover;
         }
     }
 }
@@ -78,7 +78,7 @@
         padding: 14.5px 32px !important;
         
         &:hover {
-            background-color: $color-text;
+            background-color: $color-button-hover;
         }
     }
 }
@@ -97,10 +97,10 @@
         }
         
         &:not(.modalPasswordContainerOpacity):hover {
-            background-color: $color-text !important;
+            background-color: $color-button-hover !important;
             &:last-child {
-                border: solid 1px $color-text !important;
-                color: white !important;
+                border: solid 1px $color-button-hover !important;
+                color: $color-nav-button-hover !important;
             }
         }
     }

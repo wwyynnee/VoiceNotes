@@ -67,6 +67,9 @@
 
                 button {
                     @include button(50px, 50px);
+                    &:hover {
+                        background-color: $color-button-hover-active !important;
+                    }
 
                     svg {
                         display: block;
@@ -82,7 +85,7 @@
             }
 
             &Active {
-                background-color: $color-text !important;
+                background-color: $color-button-hover-active !important;
             }
         }
     }

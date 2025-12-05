@@ -1,14 +1,15 @@
 import { useContext, useState, useEffect } from 'react'
 import NotesContext from '../../context/NotesContext'
 import { LocalizationContext } from '../../context/LocalizationContext'
+import { ThemeContext } from '../../context/ThemeContext'
 import strings from '../../utils/localization'
 import styles from './Modals.module.scss'
 
 function Settings() {
     const { onSave, getNoteById, onCloseSettings, onOpenSave } = useContext(NotesContext)
     const { changeLanguage } = useContext(LocalizationContext)
+    const { theme, setTheme } = useContext(ThemeContext)
 
-    const [tabTheme, setTabTheme] = useState('light')
     const [tabLang, setTabLang] = useState(localStorage.getItem('lang') || 'ru')
 
     useEffect(() => {
@@ -64,18 +65,18 @@ function Settings() {
                 <div className={`${styles.modalBlockContainer} ${styles.modalBlockDefault}`}>
                     <b>{strings.settingsAppTheme}</b>
                     <button
-                        className={tabTheme === 'light' ? styles.modalBlockContainerActive : ''}
-                        onClick={() => setTabTheme('light')}
+                        className={theme === 'light' ? styles.modalBlockContainerActive : ''}
+                        onClick={() => setTheme('light')}
                     >
                         {strings.settingsLightTheme}
-                        {tabTheme === 'light' && <CheckIcon />}
+                        {theme === 'light' && <CheckIcon />}
                     </button>
                     <button
-                        className={tabTheme === 'dark' ? styles.modalBlockContainerActive : ''}
-                        onClick={() => setTabTheme('dark')}
+                        className={theme === 'dark' ? styles.modalBlockContainerActive : ''}
+                        onClick={() => setTheme('dark')}
                     >
                         {strings.settingsDarkTheme}
-                        {tabTheme === 'dark' && <CheckIcon />}
+                        {theme === 'dark' && <CheckIcon />}
                     </button>
                 </div>
                 <div className={`${styles.modalBlockContainer} ${styles.modalBlockDefault}`}>

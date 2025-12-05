@@ -72,7 +72,7 @@
             }
 
             &Active {
-                background-color: $color-text !important;
+                background-color: $color-button-hover !important;
             }
             &Inactive {
                 opacity: .2;
@@ -82,7 +82,7 @@
                 }
             }
             &Active {
-                background-color: $color-text;
+                background-color: $color-button-hover;
             }
         }
     }
@@ -90,7 +90,7 @@
     &Container {
         display: flex;
         flex-direction: column;
-        background-color: white;
+        background-color: $color-dark;
         border-radius: 20px;
         padding: 32px 48px;
         gap: 1rem;

@@ -13,7 +13,7 @@
     z-index: 2;
 
     &Block {
-        background-color: white;
+        background-color: $color-dark;
         border-radius: 20px;
         padding: 20px;
         width: min(100% - 2rem, 500px);
@@ -166,7 +166,7 @@
                 button {
                     background-color: $color-button;
                     border: solid 1px $color-button;
-                    color: white;
+                    color: $color-nav-button-hover;
                 }
             }
         }

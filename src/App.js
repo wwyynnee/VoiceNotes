@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route } from 'react-router'
 import { getNotes, getNoteById, addNote, deleteNote, updateNote } from './utils/db';
 import NotesContext from './context/NotesContext'
 import { LocalizationProvider } from './context/LocalizationContext'
+import { ThemeProvider } from './context/ThemeContext'
 import strings from './utils/localization'
 
 import Nav from './components/UI/Nav'
@@ -300,24 +301,26 @@ function App() {
     <NotesContext.Provider value={contextValue}>
       <BrowserRouter>
           <div className="App">
-            <LocalizationProvider>
-              <Nav />
-              
-              <Routes>
-                <Route index element={<Main />} />
-                <Route path="/note/:id" element={<Note />} />
-                <Route path="/create" element={<Create />} />
-                <Route path="/edit/:id" element={<Edit />} />
-              </Routes>
+            <ThemeProvider>
+              <LocalizationProvider>
+                <Nav />
+                
+                <Routes>
+                  <Route index element={<Main />} />
+                  <Route path="/note/:id" element={<Note />} />
+                  <Route path="/create" element={<Create />} />
+                  <Route path="/edit/:id" element={<Edit />} />
+                </Routes>
 
-              {sortOpen && <Sort />}
-              {settingsOpen && <Settings />}
-              {downloadOpen && <Download />}
-              {deleteOpen && <Delete />}
-              {passwordOpen && <Password />}
-              {saveOpen && <Save />}
-              {addPassword && <AddPassword />}
-            </LocalizationProvider>
+                {sortOpen && <Sort />}
+                {settingsOpen && <Settings />}
+                {downloadOpen && <Download />}
+                {deleteOpen && <Delete />}
+                {passwordOpen && <Password />}
+                {saveOpen && <Save />}
+                {addPassword && <AddPassword />}
+              </LocalizationProvider>
+            </ThemeProvider>
           </div>
       </BrowserRouter>
     </NotesContext.Provider>

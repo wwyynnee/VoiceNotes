@@ -9,7 +9,7 @@
     }
 
     &Item {
-        background-color: white;
+        background-color: $color-dark;
         border-radius: 15px;
         padding: 32px;
         display: flex;
@@ -56,7 +56,7 @@
             }
 
             &Active {
-                background-color: $color-text !important;
+                background-color: $color-button-hover-active !important;
             }
         }
     }

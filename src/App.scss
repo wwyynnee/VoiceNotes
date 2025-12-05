@@ -7,6 +7,40 @@
   margin: 0;
 }
 
+:root[data-theme='light'] {
+  --color-main: #D9D8FF;
+  --color-background: #FFF4F4;
+  --color-button: #A19EFF;
+  --color-text: #222222;
+  --color-grey: #22222230;
+  --color-dark: white;
+  --color-background-modal: #00000070;
+
+  --color-tab-hover: rgba(217, 216, 255, 0.4);
+  --color-button-hover: #222222;
+  --color-button-hover-active: #222222;
+  --color-nav-button-hover: white;
+}
+:root[data-theme='dark'] {
+  --color-main: #111111;
+  --color-background: #363636;
+  --color-button: #8E24FF;
+  --color-text: #F5F5F5;
+  --color-grey: #F5F5F530;
+  --color-dark: #222222;
+  --color-background-modal: #00000090;
+
+  --color-tab-hover: rgba(17, 17, 17, 0.4);
+  --color-button-hover: #111111;
+  --color-button-hover-active: #F5F5F530;
+  --color-nav-button-hover: #F5F5F5;
+
+  svg {
+    rect {
+      fill: $color-nav-button-hover;
+    }
+  }
+}
 ::-webkit-scrollbar {
   width: 12px;
 }
@@ -41,6 +75,8 @@ input {
   user-select: none;
   font-family: "Raleway", sans-serif;
   font-variant-numeric: lining-nums;
+  background-color: $color-dark;
+  color: $color-text;
 }
 a {
   color: inherit;
