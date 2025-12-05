@@ -10,7 +10,7 @@ function ViewButtons({ note }) {
     const { language } = useContext(LocalizationContext)
 
     return (
-        <div className={styles.viewButtons}>
+        <div className={styles.viewButtons} data-lang={language}>
             <div className={styles.viewButtonsItems}>
                 <NavLink to="/">
                     <button>

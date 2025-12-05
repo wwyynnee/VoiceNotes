@@ -101,7 +101,7 @@ function CreateNote() {
     }
 
     return (
-        <div className={styles.create}>
+        <div className={styles.create} data-lang={language}>
             <div className={styles.createButtons}>
                 <div className={styles.createButtonsItems}>
                     <NavLink to="/">

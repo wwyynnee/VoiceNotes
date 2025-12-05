@@ -14,7 +14,7 @@ function Sort() {
 
     function handleClick(newTab) {
         setTab(newTab)
-        onSortNotes(newTab)
+        //onSortNotes(newTab)
         localStorage.setItem('sortTab', newTab)
     }
 

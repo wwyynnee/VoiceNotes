@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useCallback } from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router'
 import { getNotes, getNoteById, addNote, deleteNote, updateNote } from './utils/db';
 import NotesContext from './context/NotesContext'
@@ -66,7 +66,7 @@ function App() {
   const openSortModal = () => setSortOpen(true)
   const closeSortModal = () => setSortOpen(false)
 
-  function sortNotes(tab) {
+  const sortNotes = useCallback((tab) => {
     setNotes(prevNotes => {
       const sorted = [...prevNotes]
   
@@ -80,7 +80,8 @@ function App() {
   
       return sorted
     })
-  }
+  }, []);
+
 
   // Поиск по заметкам
   const [searchQuery, setSearchQuery] = useState('');

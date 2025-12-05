@@ -9,7 +9,7 @@ function Search({ type }) {
     const { language } = useContext(LocalizationContext)
 
     return (
-        <div className={`${styles.search} ${type === 'mobile' && styles.searchMobile}`}>
+        <div className={`${styles.search} ${type === 'mobile' && styles.searchMobile}`} data-lang={language}>
             <button onClick={onOpenSort} className={isSortActive ? styles.searchActive : ''}>                       
                 <svg width="30" height="16" viewBox="0 0 30 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <rect width="30" height="2" fill="#222222"/>

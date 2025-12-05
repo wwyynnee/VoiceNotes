@@ -14,7 +14,7 @@ function Nav() {
 
     return (
         <>
-            <nav className={styles.nav}>
+            <nav className={styles.nav} data-lang={language}>
                 <div className={styles.navItems}>
                     <div className={styles.navItemsContainer}>
                         <p>Voice</p>

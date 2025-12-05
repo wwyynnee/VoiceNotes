@@ -57,7 +57,7 @@ function Notes() {
     }
 
     return (
-        <div className={styles.notes}>
+        <div className={styles.notes} data-lang={language}>
 
             {filteredNotes.length === 0 && (
                 <div className={styles.notesEmpty}>
