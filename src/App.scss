@@ -20,6 +20,7 @@
   --color-button-hover: #222222;
   --color-button-hover-active: #222222;
   --color-nav-button-hover: white;
+  --color-modal-button-hover: #222222;
 }
 :root[data-theme='dark'] {
   --color-main: #111111;
@@ -34,10 +35,14 @@
   --color-button-hover: #111111;
   --color-button-hover-active: #F5F5F530;
   --color-nav-button-hover: #F5F5F5;
+  --color-modal-button-hover: #F5F5F5;
 
   svg {
     rect {
       fill: $color-nav-button-hover;
+    }
+    path[fill="#A19EFF"] {
+      fill: $color-button;
     }
   }
 }

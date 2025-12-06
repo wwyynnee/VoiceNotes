@@ -44,6 +44,7 @@ let strings = new LocalizedStrings({
         saveTitleButton: 'Все заметки',
 
         // Ввод пароля
+        password: 'Пароль',
         passwordTitle: 'Введите пароль',
         passwordSpan: 'На заметку',
         passwordInput: 'Пароль',
@@ -105,6 +106,7 @@ let strings = new LocalizedStrings({
         saveTitleButton: 'All notes',
 
         // Ввод пароля
+        password: 'Password',
         passwordTitle: 'Enter the password',
         passwordSpan: 'For the note',
         passwordInput: 'Password',

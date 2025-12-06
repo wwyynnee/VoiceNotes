@@ -120,6 +120,12 @@
                 font-size: 20px;
             }
         }
+
+        svg {
+            path {
+                fill: $color-modal-button-hover;
+            }
+        }
     }
 
     &Content {
