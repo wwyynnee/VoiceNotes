@@ -11,6 +11,14 @@ export function ThemeProvider({ children }) {
 
     // когда тема меняется — обновляем HTML и localStorage
     useEffect(() => {
+        const meta = document.querySelector('meta[name="theme-color"]')
+        if (meta) {
+            meta.setAttribute(
+                "content",
+                theme === "dark" ? "#111111" : "#D9D8FF"
+            )
+        }
+            
         document.documentElement.setAttribute("data-theme", theme)
         localStorage.setItem("appTheme", theme)
     }, [theme])
